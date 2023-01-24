@@ -7,11 +7,9 @@ class PlateGenerator:
         self.save_path = save_path
         self.random = random
 
-        # Basic nums and chars
-        # self.num_ims, self.num_lists = load("./digits/")
+        # Digits and characters
         self.num_ims, self.num_lists = load("./digits_uzbek/")
         self.char_ims, self.char_lists = load("./characters_uzbek/")
-
         
     def assertion(self, region_name, region_names):
         
