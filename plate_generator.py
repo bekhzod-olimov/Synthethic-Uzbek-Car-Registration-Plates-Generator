@@ -19,16 +19,6 @@ class PlateGenerator:
     
     def generate(self, plate, save, plate_type, region_name):
         
-        # if plate_type == "long":
-        #             generate_plate(plate_path="plates/plate.jpg", random=self.random,
-        #                        plate=plate, num_size=(56, 83), num_size_2=None, 
-        #                        num_list=self.num_lists, init_size=(13, 36), # start from left to right
-        #                        char_list=self.char_lists, regions=None, three_digit = None,
-        #                        num_ims=self.num_ims, char_size=(60, 83), region_name=None,
-        #                        char_ims=self.char_ims, label_prefix=plate_type,
-        #                        save_path=self.save_path, region_size=None, all_regions=self.regions_lists_yellow,
-        #                        save_=save, plate_size=(520, 110))
-
         if plate_type == "long":
                     generate_plate(plate_path="plates/plate_uzbek.jpg", random=self.random,
                                plate=plate, num_size=(56, 78), num_size_2=None, 
