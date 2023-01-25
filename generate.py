@@ -21,8 +21,7 @@ data_path = args.data_path
 random = args.random
 number_of_plates = args.number_of_plates
 Save = args.save
-sample = "100마0000"
-sample = "서울17마0000"
+sample = "01A272AA"
 
 def split_and_generate(generator, sample, save, num):
     
