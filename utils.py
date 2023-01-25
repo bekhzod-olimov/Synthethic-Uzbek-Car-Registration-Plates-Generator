@@ -19,6 +19,7 @@ def random_bright(img):
 
 def partial_write(Plate, label, num_list, num_ims, char_ims, char_size, plate_chars, num_size, row, col, random, label_prefix):
     
+    # number 4
     if random:
         plate_int = int(np.random.randint(low=0, high=9, size=1))
     else:
@@ -46,7 +47,7 @@ def partial_write(Plate, label, num_list, num_ims, char_ims, char_size, plate_ch
     
     label += str(num_list[plate_int])
     Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-    col += num_size[0] + 25
+    col += num_size[0] + 25 # change here
 
     # character 7
     if random:
@@ -74,7 +75,7 @@ def partial_write(Plate, label, num_list, num_ims, char_ims, char_size, plate_ch
     if label_prefix == "short":
         col += (char_size[0] + init_size[1])
     else:
-        col += (char_size[0] + 25)
+        col += (char_size[0] + 25) # change here
     
     return Plate, label
     
@@ -100,12 +101,9 @@ def write(Plate, label, num_list, num_ims, init_size, three_digit, char_list, pl
         plate_int = int(plate_chars[1])
     
     label += str(num_list[plate_int])
-    # Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-    # col += num_size[0]
     
-    Plate[row:row + 55, col:col + 45, :] = cv2.resize(num_ims[str(plate_int)], (45, 55)) #(56, 83)
-    # col += num_size[0]
-    col += 70
+    Plate[row:row + 55, col:col + 45, :] = cv2.resize(num_ims[str(plate_int)], (45, 55)) #(56, 83) # change here
+    col += 70 # change here
     
     # character 3
     if label_prefix == "short" or label_prefix == "long":
@@ -117,11 +115,12 @@ def write(Plate, label, num_list, num_ims, init_size, three_digit, char_list, pl
             plate_int = (plate_chars[-6])
         
         label += str(plate_int)
+        row -= 10 # change here
         Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
         if label_prefix == "short":
             col += (char_size[0] + init_size[1])
         else:
-            col += (char_size[0] + 25)
+            col += (char_size[0] + 20) # change here
 
     if num_size_2 != None:
         Plate, label = partial_write(Plate, label, num_list, num_ims, char_ims, char_size, plate_chars, num_size_2, row, col, random, label_prefix)
