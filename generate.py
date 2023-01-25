@@ -4,25 +4,22 @@ import pandas as pd
 
 def run(args):
     
-    sample = "01227AAA"
-    sample = "01A227AA"
-
     def split_and_generate(generator, sample, save, num):
 
         split_ = os.path.splitext(os.path.basename(sample))[0]
         region = split_[:2]
-        generator.generate(sample, save=args.save, num=num, plate_type=None, region=region)
+        generator.generate(sample, args.save, num=num, plate_type=None, region=region)
 
     if args.random:
         generator = PlateGenerator(save_path=args.save_path, random=args.random)
-        split_and_generate(generator, sample=sample, save=args.save, num=args.number_of_plates)    
+        split_and_generate(generator, args.sample, args.save, args.number_of_plates)    
 
     else:
         df = pd.read_csv(args.data_path)
         texts = [os.path.basename(filename) for filename in df["filename"]]
         generator = PlateGenerator(save_path=args.save_path, random=args.random)    
-        for sample in texts:
-            split_and_generate(generator, sample=sample, save=args.save, num=1)    
+        for text in texts:
+            split_and_generate(generator, text, args.save, 1)    
 
 if __name__ == "__main__":
     
@@ -33,6 +30,8 @@ if __name__ == "__main__":
     parser.add_argument("-np", "--number_of_plates", help = "Number of images to generate", type = int, default = 3)
     parser.add_argument("-s", "--save", help = "Saving option", type = bool, default = True)
     parser.add_argument("-r", "--random", help = "Generate random plate numbers", type = bool, default = True)
+    parser.add_argument("-sl", "--sample", help = "Sample plate number to distinguish state or long plate numbers", type = str, default = "01227AAA")
+    # parser.add_argument("-sl", "--sample", help = "Sample plate number to distinguish state or long plate numbers", type = str, default = "01A227AA")
     
     args = parser.parse_args()
     run(args) 
