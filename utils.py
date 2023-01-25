@@ -17,7 +17,7 @@ def random_bright(img):
     
     return img
 
-def partial_write(Plate, label, num_list, num_ims, char_ims, char_size, plate_chars, num_size, row, col, random, label_prefix):
+def partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix):
     
     # number 4
     if random:
@@ -47,7 +47,7 @@ def partial_write(Plate, label, num_list, num_ims, char_ims, char_size, plate_ch
     
     label += str(num_list[plate_int])
     Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-    col += num_size[0] + 25 # change here
+    col += num_size[0] + region_size[0]
 
     # character 7
     if random:
@@ -75,11 +75,11 @@ def partial_write(Plate, label, num_list, num_ims, char_ims, char_size, plate_ch
     if label_prefix == "short":
         col += (char_size[0] + init_size[1])
     else:
-        col += (char_size[0] + 25) # change here
+        col += (char_size[0] + region_size[0]) 
     
     return Plate, label
     
-def write(Plate, label, num_list, num_ims, init_size, three_digit, char_list, plate_chars, num_size, num_size_2, char_ims, char_size, label_prefix, row, col, random):
+def write(Plate, label, num_list, num_ims, init_size, three_digit, char_list, plate_chars, num_size, region_size, num_size_2, char_ims, char_size, label_prefix, row, col, random):
     
     # number 1
     if random:
@@ -88,11 +88,8 @@ def write(Plate, label, num_list, num_ims, init_size, three_digit, char_list, pl
         plate_int = int(plate_chars[0])
 
     label += str(num_list[plate_int])
-    # Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], (int(num_size[0]/2), int(num_size[1]/2))) #(56, 83)
-    # Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size) #(56, 83)
-    Plate[row:row + 55, col:col + 45, :] = cv2.resize(num_ims[str(plate_int)], (45, 55)) #(56, 83)
-    # col += num_size[0]
-    col += 35
+    Plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
+    col += region_size[1] + 10
 
     # number 2
     if random:
@@ -101,9 +98,8 @@ def write(Plate, label, num_list, num_ims, init_size, three_digit, char_list, pl
         plate_int = int(plate_chars[1])
     
     label += str(num_list[plate_int])
-    
-    Plate[row:row + 55, col:col + 45, :] = cv2.resize(num_ims[str(plate_int)], (45, 55)) #(56, 83) # change here
-    col += 70 # change here
+    Plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
+    col += (region_size[1] + 5) * 2
     
     # character 3
     if label_prefix == "short" or label_prefix == "long":
@@ -115,17 +111,17 @@ def write(Plate, label, num_list, num_ims, init_size, three_digit, char_list, pl
             plate_int = (plate_chars[-6])
         
         label += str(plate_int)
-        row -= 10 # change here
+        row -= init_size[0] - 3 
         Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
         if label_prefix == "short":
             col += (char_size[0] + init_size[1])
         else:
-            col += (char_size[0] + 20) # change here
+            col += (char_size[0] + region_size[0] - 5)
 
     if num_size_2 != None:
-        Plate, label = partial_write(Plate, label, num_list, num_ims, char_ims, char_size, plate_chars, num_size_2, row, col, random, label_prefix)
+        Plate, label = partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size_2, row, col, random, label_prefix)
     else:
-        Plate, label = partial_write(Plate, label, num_list, num_ims, char_ims, char_size, plate_chars, num_size, row, col, random, label_prefix)
+        Plate, label = partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix)
         
     return Plate, label
 
@@ -172,15 +168,11 @@ def generate_plate(plate_path, plate, plate_size, num_size, num_size_2, random, 
     plate_chars = [char for char in plate]
     Plate, label, row, col, three_digit = preprocess(plate_path, plate_size, label_prefix, region_size, three_digit, plate_chars)
     
-    if random:
-        randint = int(np.random.randint(low=0, high=len(all_regions), size=1))
-        region_name = all_regions[randint]
+    # if random:
+    #     randint = int(np.random.randint(low=0, high=len(all_regions), size=1))
+    #     region_name = all_regions[randint]
 
-    if label_prefix == "yellow" or label_prefix == "old":
-        Plate[row:row + region_size[1], col:col + region_size[0], :] = cv2.resize(regions[region_name], region_size)
-        col += region_size[0] + 8
-
-    Plate, label = write(Plate=Plate, label=label, num_list=num_list, num_ims=num_ims, random=random,
+    Plate, label = write(Plate=Plate, label=label, num_list=num_list, num_ims=num_ims, random=random, region_size=region_size,
                          init_size=init_size, three_digit=three_digit, plate_chars=plate_chars, char_list=char_list,
                          num_size_2=num_size_2, char_ims=char_ims, char_size=char_size, 
                          label_prefix=label_prefix, row=row, num_size=num_size, col=col)
