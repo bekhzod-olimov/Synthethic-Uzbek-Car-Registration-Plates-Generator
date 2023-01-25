@@ -23,10 +23,10 @@ class PlateGenerator:
         
         if plate_type == "long":
                     generate_plate(plate_path="plates/plate_uzbek.jpg", random=self.random,
-                               plate=plate, num_size=(56, 78), num_size_2=None, 
-                               num_list=self.num_lists, init_size=(13, 46), # start from left to right
+                               plate=plate, num_size=(55, 78), num_size_2=None, 
+                               num_list=self.num_lists, init_size=(13, 45), 
                                char_list=self.char_lists, regions=None, three_digit = None,
-                               num_ims=self.num_ims, char_size=(60, 78), region_name=None, # width 60, height 83 
+                               num_ims=self.num_ims, char_size=(60, 78), region_name=None, 
                                char_ims=self.char_ims, label_prefix=plate_type,
                                save_path=self.save_path, region_size=(25, 30), all_regions=None,
                                save_=save, plate_size=(600, 110))
