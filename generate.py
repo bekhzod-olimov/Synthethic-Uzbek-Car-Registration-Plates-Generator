@@ -22,6 +22,7 @@ random = args.random
 number_of_plates = args.number_of_plates
 Save = args.save
 sample = "01227AAA"
+sample = "01A227AA"
 
 def split_and_generate(generator, sample, save, num):
     
