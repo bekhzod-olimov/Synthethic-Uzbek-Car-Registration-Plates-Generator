@@ -4,8 +4,6 @@ import pandas as pd
 
 def run(args):
     
-    save_path = args.save_path
-    data_path = args.data_path
     random = args.random
     number_of_plates = args.number_of_plates
     Save = args.save
@@ -19,13 +17,13 @@ def run(args):
         generator.generate(sample, save=Save, num=num, plate_type=None, region=region)
 
     if random:
-        generator = PlateGenerator(save_path=save_path, random=random)
+        generator = PlateGenerator(save_path=args.save_path, random=random)
         split_and_generate(generator, sample=sample, save=Save, num=number_of_plates)    
 
     else:
-        df = pd.read_csv("uzbek.csv")
+        df = pd.read_csv(args.data_path)
         texts = [os.path.basename(filename) for filename in df["filename"]]
-        generator = PlateGenerator(save_path=save_path, random=random)    
+        generator = PlateGenerator(save_path=args.save_path, random=random)    
         for sample in texts:
             split_and_generate(generator, sample=sample, save=Save, num=1)    
 
@@ -33,11 +31,11 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description="Synthetic Plate Number Generator")
     
-    parser.add_argument("-dp", "--data_path", help = "Path to the csv file with plate numbers", type = str, default = "test.csv")
+    parser.add_argument("-dp", "--data_path", help = "Path to the csv file with plate numbers", type = str, default = "uzbek.csv")
     parser.add_argument("-sp", "--save_path", help = "Directory to save generated images", type = str, default = "./new_samples/to_test_new/")
     parser.add_argument("-np", "--number_of_plates", help = "Number of images to generate", type = int, default = 3)
     parser.add_argument("-s", "--save", help = "Saving option", type = bool, default = True)
-    parser.add_argument("-r", "--random", help="Random plate numbers", type=bool, default=True)
+    parser.add_argument("-r", "--random", help = "Generate random plate numbers", type = bool, default = False)
     
     args = parser.parse_args()
     run(args) 
