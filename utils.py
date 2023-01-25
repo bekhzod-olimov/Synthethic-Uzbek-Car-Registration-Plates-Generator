@@ -29,18 +29,19 @@ def partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_siz
         label += str(num_list[plate_int])
         Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
         
-    col += num_size[0]
+    col += 50
 
     # number 5
     if random:
         plate_int = int(np.random.randint(low=0, high=9, size=1))
-        
     else:
         plate_int = int(plate_chars[-4])
         
     label += str(num_list[plate_int])
     Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-    col += num_size[0] + region_size[0]
+    
+    if label_prefix == "long": col += 50 
+    elif label_prefix == "state": col += num_size[0] + 30
 
     # number 6
     if label_prefix == "short" or label_prefix == "long":
@@ -52,7 +53,7 @@ def partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_siz
 
         label += str(num_list[plate_int])
         Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-        col += num_size[0] + region_size[0]
+        col += 70
     
     elif label_prefix == "state":
         
@@ -62,9 +63,9 @@ def partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_siz
         else:
             plate_int = (plate_chars[-3])
             
-    label += str(plate_int)
-    Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
-    col += (char_size[0])
+        label += str(plate_int)
+        Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
+        col += 60
     
     # character 7
     if random:
@@ -75,7 +76,8 @@ def partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_siz
 
     label += str(plate_int)
     Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
-    col += (char_size[0])
+    if label_prefix == "long": col += char_size[0] 
+    elif label_prefix == "state": col += 60 
         
     # character 8
     if random:
@@ -106,7 +108,7 @@ def write(Plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
         plate_int = int(plate_chars[0])
         label += str(num_list[plate_int])
         Plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
-    col += region_size[1] + 10
+    col += 42
 
     # number 2
     if random:
@@ -116,7 +118,7 @@ def write(Plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
         plate_int = int(plate_chars[1])
         label += str(num_list[plate_int])
         Plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
-    col += (region_size[1] + 5) * 2
+    col += 70
     
     # character 3
     row -= init_size[0] - 3 
@@ -130,7 +132,7 @@ def write(Plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
         
         label += str(plate_int)
         Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
-        col += region_size[1] + 10
+        col += 70 
 
     elif label_prefix == "state":
         
@@ -141,7 +143,7 @@ def write(Plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
         
         label += str(num_list[plate_int])
         Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-        col += num_size[0] 
+        col += 50 
         
     Plate, label = partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix) # maybe here?
         
