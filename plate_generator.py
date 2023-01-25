@@ -22,7 +22,8 @@ class PlateGenerator:
         for _ in range(num):
             
             if plate[-3:].isalpha(): plate_type = "state"
-            elif plate[2].isdigit(): plate_type = "long"
+            elif plate[2].isalpha(): plate_type = "long"
+            print(f"Plate type: {plate_type}")
             
             self.assertion(region, self.regions)
             generate_plate(plate_path="plates/plate_uzbek.jpg", random=self.random,
@@ -31,5 +32,5 @@ class PlateGenerator:
                        char_list=self.char_lists, regions=list(self.regions.keys()),
                        num_ims=self.num_ims, char_size=(60, 78), region=region, 
                        char_ims=self.char_ims, label_prefix=plate_type,
-                       save_path=self.save_path, region_size=(25, 30),
-                       save_=save, plate_size=(600, 110))
+                       save_path=self.save_path, region_size=(25, 25),
+                       save_=save, plate_size=(575, 110))
