@@ -7,9 +7,11 @@ class PlateGenerator:
         self.save_path = save_path
         self.random = random
 
-        # Digits and characters
+        # Basic nums and chars
+        # self.num_ims, self.num_lists = load("./digits/")
         self.num_ims, self.num_lists = load("./digits_uzbek/")
         self.char_ims, self.char_lists = load("./characters_uzbek/")
+
         
     def assertion(self, region_name, region_names):
         
@@ -27,9 +29,8 @@ class PlateGenerator:
                                num_ims=self.num_ims, char_size=(60, 78), region_name=None, # width 60, height 83 
                                char_ims=self.char_ims, label_prefix=plate_type,
                                save_path=self.save_path, region_size=(25, 30), all_regions=None,
-                                   # all_regions=self.regions_lists_yellow,
                                save_=save, plate_size=(600, 110))
-        
+
     def generation(self, plate, save, plate_type, num=None, region_name=None):
         
         assert plate_type in ["short", "long", "yellow", "old", "green"], "Please choose the correct the plate type"
