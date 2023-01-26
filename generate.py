@@ -31,9 +31,9 @@ if __name__ == "__main__":
     parser.add_argument("-np", "--number_of_plates", help = "Number of images to generate", type = int, default = 3)
     parser.add_argument("-s", "--save", help = "Saving option", type = bool, default = True)
     parser.add_argument("-r", "--random", help = "Generate random plate numbers", type = bool, default = True)
-    # parser.add_argument("-sl", "--sample", help = "Sample plate number to distinguish basic, state, foreign plate numbers", type = str, default = "01227AAA")
+    parser.add_argument("-sl", "--sample", help = "Sample plate number to distinguish basic, state, foreign plate numbers", type = str, default = "01227AAA")
     # parser.add_argument("-sl", "--sample", help = "Sample plate number to distinguish basic, state, foreign plate numbers", type = str, default = "01A227AA")
-    parser.add_argument("-sl", "--sample", help = "Sample plate number to distinguish basic, state, foreign plate numbers", type = str, default = "01H012345")
+    # parser.add_argument("-sl", "--sample", help = "Sample plate number to distinguish basic, state, foreign plate numbers", type = str, default = "01H012345")
     
     args = parser.parse_args()
     run(args) 
