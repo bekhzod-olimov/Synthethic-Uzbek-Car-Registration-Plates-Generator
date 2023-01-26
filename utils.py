@@ -17,17 +17,27 @@ def random_bright(img):
     
     return img
 
-def partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix):
+def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix):
+    
+    if label_prefix == "foreign":
+        if random:
+            plate_int = int(np.random.randint(low=0, high=9, size=1))
+            plate_int = num_list[plate_int]
+        else:
+            plate_int = (plate_chars[-6])
+        label += str(plate_int)
+        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
+        col += 55
     
     # number 4
     if random:
         plate_int = int(np.random.randint(low=0, high=9, size=1))
         label += str(num_list[plate_int])
-        Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+        plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
     else:
         plate_int = int(plate_chars[-5])
         label += str(num_list[plate_int])
-        Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+        plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
         
     col += 50
 
@@ -38,13 +48,13 @@ def partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_siz
         plate_int = int(plate_chars[-4])
         
     label += str(num_list[plate_int])
-    Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+    plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
     
-    if label_prefix == "long": col += 50 
+    if label_prefix in ["basic", "foreign"]: col += 50 
     elif label_prefix == "state": col += num_size[0] + 30
 
     # number 6
-    if label_prefix == "short" or label_prefix == "long":
+    if label_prefix == "foreign" or label_prefix == "basic":
         
         if random:
             plate_int = int(np.random.randint(low=0, high=9, size=1))
@@ -52,8 +62,9 @@ def partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_siz
             plate_int = int(plate_chars[-3])
 
         label += str(num_list[plate_int])
-        Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-        col += 70
+        plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+        if label_prefix == "basic": col += 70 
+        elif label_prefix == "foreign": col += 50 
     
     elif label_prefix == "state":
         
@@ -64,103 +75,126 @@ def partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_siz
             plate_int = (plate_chars[-3])
             
         label += str(plate_int)
-        Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
+        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
         col += 60
     
     # character 7
-    if random:
-        plate_int = int(np.random.randint(low=0, high=9, size=1))
-        plate_int = char_list[plate_int]
+    if label_prefix == "foreign":
+        if random:
+            plate_int = int(np.random.randint(low=0, high=9, size=1))
+            plate_int = num_list[plate_int]
+        else:
+            plate_int = (plate_chars[-2])
+        label += str(plate_int)
+        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
+    
     else:
-        plate_int = (plate_chars[-2])
-
-    label += str(plate_int)
-    Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
-    if label_prefix == "long": col += char_size[0] 
-    elif label_prefix == "state": col += 60 
+        if random:
+            plate_int = int(np.random.randint(low=0, high=9, size=1))
+            plate_int = char_list[plate_int]
+        else:
+            plate_int = (plate_chars[-2])
+        label += str(plate_int)
+        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
+        
+    if label_prefix in ["basic", "state"]: col += 60 
+    elif label_prefix == "foreign": col += 50 
         
     # character 8
-    if random:
-        plate_int = int(np.random.randint(low=0, high=9, size=1))
-        plate_int = char_list[plate_int]
+    if label_prefix == "foreign":
+        if random:
+            plate_int = int(np.random.randint(low=0, high=9, size=1))
+            plate_int = num_list[plate_int]
+        else:
+            plate_int = (plate_chars[-1])
+        label += str(plate_int)
+        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
+    
     else:
-        plate_int = (plate_chars[-1])
+        if random:
+            plate_int = int(np.random.randint(low=0, high=9, size=1))
+            plate_int = char_list[plate_int]
+        else:
+            plate_int = (plate_chars[-1])
 
-    label += str(plate_int)
-    Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
-    if label_prefix == "short":
-        col += (char_size[0] + init_size[1])
-    else:
-        col += (char_size[0] + region_size[0]) 
+        label += str(plate_int)
+        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
+        if label_prefix == "short":
+            col += (char_size[0] + init_size[1])
+        else:
+            col += (char_size[0] + region_size[0]) 
     
-    return Plate, label
+    return plate, label
     
-def write(Plate, label, num_list, num_ims, init_size, char_list, plate_chars, num_size, region_size, char_ims, char_size, label_prefix, row, col, random, regions):
+def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, num_size, region_size, char_ims, char_size, label_prefix, row, col, random, regions):
     
     # number 1
     if random:
         plate_int = int(np.random.randint(low=0, high=len(regions), size=1))
         random_region = regions[plate_int]
         label += str(num_list[int(random_region[0])])
-        Plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(random_region[0])], (init_size[1], num_size[0]))
+        plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(random_region[0])], (init_size[1], num_size[0]))
     
     else:
         plate_int = int(plate_chars[0])
         label += str(num_list[plate_int])
-        Plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
+        plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
     col += 42
 
     # number 2
     if random:
         label += str(num_list[int(random_region[1])])
-        Plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(random_region[1])], (init_size[1], num_size[0]))
+        plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(random_region[1])], (init_size[1], num_size[0]))
     else:
         plate_int = int(plate_chars[1])
         label += str(num_list[plate_int])
-        Plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
+        plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
     col += 70
     
     # character 3
     row -= init_size[0] - 3 
-    if label_prefix == "short" or label_prefix == "long":
+    
+    if label_prefix == "foreign": col += 10
+    if label_prefix == "foreign" or label_prefix == "basic":
 
         if random:
             plate_int = int(np.random.randint(low=0, high=9, size=1))
             plate_int = char_list[plate_int]
         else:
-            plate_int = (plate_chars[-6])
+            plate_int = (plate_chars[-6]) if label_prefix == "basic" else (plate_chars[-7])
         
         label += str(plate_int)
-        Plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
-        col += 70 
+        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
+        if label_prefix == "basic": col += 70 
+        elif label_prefix == "foreign": col += 85
 
     elif label_prefix == "state":
         
         if random:
             plate_int = int(np.random.randint(low=0, high=9, size=1))
         else:
-            plate_int = (plate_chars[-6])
+            plate_int = int(plate_chars[-6])
         
         label += str(num_list[plate_int])
-        Plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+        plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
         col += 50 
         
-    Plate, label = partial_write(Plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix) # maybe here?
+    plate, label = partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix) 
         
-    return Plate, label
+    return plate, label
 
-def save(Plate, save_path, transformations, label):
+def save(plate, save_path, transformations, label):
     
     if transformations:
-        Plate = random_bright(Plate)
+        plate = random_bright(plate)
         tfs = albumentations.Compose([Affine(rotate=[-7, 7], shear=None, p=0.5),
                          Perspective(scale=(0.05, 0.12), p=0.5)])
-        Plate = tfs(image=Plate)["image"]
+        plate = tfs(image=Plate)["image"]
     
     folder = label.split('_')[0]
     save_dir = os.path.join(save_path, folder)
     os.makedirs(save_dir, exist_ok = True)
-    cv2.imwrite(os.path.join(save_dir, f"{label.split('_')[1]}") + ".jpg", Plate)
+    cv2.imwrite(os.path.join(save_dir, f"{label.split('_')[1]}") + ".jpg", plate)
     print(f"Plate {label.split('_')[1]}.jpg is saved to {save_dir}/!")
 
 def load(files_path):
@@ -178,11 +212,11 @@ def load(files_path):
 
 def preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars):
     
-    Plate = cv2.resize(cv2.imread(plate_path), plate_size)
+    plate = cv2.resize(cv2.imread(plate_path), plate_size)
     label = f"{label_prefix}_" 
     row, col = region_size[0], region_size[1]
     
-    return Plate, label, row, col
+    return plate, label, row, col
 
 def generate_plate(plate_path, plate, plate_size, num_size, random,
                    char_size, init_size, num_list, char_list, num_ims, char_ims, 
@@ -190,11 +224,11 @@ def generate_plate(plate_path, plate, plate_size, num_size, random,
     
     plate_chars = [char for char in plate]
     
-    Plate, label, row, col = preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars)
+    plate, label, row, col = preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars)
     
-    Plate, label = write(Plate=Plate, label=label, num_list=num_list, num_ims=num_ims, random=random, 
+    plate, label = write(plate=plate, label=label, num_list=num_list, num_ims=num_ims, random=random, 
                          init_size=init_size, plate_chars=plate_chars, char_list=char_list,
                          char_ims=char_ims, char_size=char_size, region_size=region_size, regions=regions,
                          label_prefix=label_prefix, row=row, num_size=num_size, col=col)
 
-    if save_: save(Plate=Plate, save_path=save_path, transformations=False, label=label)
+    if save_: save(plate=plate, save_path=save_path, transformations=False, label=label)
