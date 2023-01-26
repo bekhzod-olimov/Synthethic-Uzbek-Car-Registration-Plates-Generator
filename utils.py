@@ -98,7 +98,7 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
         
     if label_prefix in ["basic", "state"]: col += 60 
-    elif label_prefix == "foreign": col += 50 
+    elif label_prefix == "foreign": col += 55 
         
     # character 8
     if label_prefix == "foreign":
@@ -139,7 +139,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
         plate_int = int(plate_chars[0])
         label += str(num_list[plate_int])
         plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
-    col += 42
+    col += 40
 
     # number 2
     if random:
@@ -154,7 +154,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
     # character 3
     row -= init_size[0] - 3 
     
-    if label_prefix == "foreign": col += 10
+    if label_prefix == "foreign": col += 5
     if label_prefix == "foreign" or label_prefix == "basic":
 
         if random:
@@ -166,7 +166,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
         label += str(plate_int)
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
         if label_prefix == "basic": col += 70 
-        elif label_prefix == "foreign": col += 85
+        elif label_prefix == "foreign": col += 75
 
     elif label_prefix == "state":
         
@@ -214,7 +214,9 @@ def preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars):
     
     plate = cv2.resize(cv2.imread(plate_path), plate_size)
     label = f"{label_prefix}_" 
-    row, col = region_size[0], region_size[1]
+    
+    if label_prefix == "foreign": row, col = region_size[0] + 3, region_size[1] + 8
+    else: row, col = region_size[0], region_size[1]
     
     return plate, label, row, col
 
