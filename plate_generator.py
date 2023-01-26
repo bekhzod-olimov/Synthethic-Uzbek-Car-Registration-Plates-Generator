@@ -23,15 +23,18 @@ class PlateGenerator:
         
     def generate(self, plate, save, plate_type, num, region):
         
+        plate_path, num_list, char_list, num_ims, char_ims = "plates/plate_uzbek.jpg", self.num_lists, self.char_lists, self.num_ims, self.char_ims
+        
         for _ in range(num):
             
             if plate[-1].isdigit(): plate_type, plate_path, num_list, char_list, num_ims, char_ims  = "foreign", "plates/plate_foreign.jpg", self.num_lists_foreign, self.char_lists_foreign, self.num_ims_foreign, self.char_ims_foreign
-            elif plate[2].isalpha(): plate_type, plate_path = "basic", "plates/plate_uzbek.jpg"
-            elif plate[-3:].isalpha(): plate_type, plate_path = "state", "plates/plate_uzbek.jpg"
+            elif plate[2].isalpha(): plate_type = "basic"
+            elif plate[-3:].isalpha(): plate_type = "state"
 
             print(f"Plate type: {plate_type}")
             
             self.assertion(region, self.regions)
+            
             generate_plate(plate_path=plate_path, random=self.random,
                        plate=plate, num_size=(55, 78),
                        num_list=num_list, init_size=(13, 45), 
