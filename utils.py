@@ -17,12 +17,13 @@ def random_bright(img):
     
     return img
 
+def get_random_int(li, low, high, size): return li[int(np.random.randint(low=low, high=high, size=size))]
+    
 def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix):
     
     if label_prefix in ["foreign", "diplomatic"]:
         if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
-            plate_int = num_list[plate_int]
+            plate_int = get_random_int(num_list, 0, len(num_list), 1)
         else:
             plate_int = (plate_chars[-6])
         label += str(plate_int)
@@ -35,7 +36,6 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         label += str(num_list[plate_int])
         plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
     else:
-        # plate_int = int(plate_chars[1]) if label_prefix == "diplomatic" else int(plate_chars[-5]) 
         plate_int = int(plate_chars[-5]) 
         label += str(num_list[plate_int])
         plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
@@ -70,8 +70,7 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     elif label_prefix == "state":
         
         if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
-            plate_int = char_list[plate_int]
+            plate_int = get_random_int(char_list, 0, len(char_list), 1)
         else:
             plate_int = (plate_chars[-3])
             
@@ -82,8 +81,7 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     # character 7
     if label_prefix in ["foreign", "diplomatic"]:
         if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
-            plate_int = num_list[plate_int]
+            plate_int = get_random_int(num_list, 0, len(num_list), 1)
         else:
             plate_int = plate_chars[-2] if label_prefix == "foreign" else plate_chars[-3]
         label += str(plate_int)
@@ -91,21 +89,19 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     
     else:
         if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
-            plate_int = char_list[plate_int]
+            plate_int = get_random_int(char_list, 0, len(char_list), 1)
         else:
             plate_int = (plate_chars[-2])
         label += str(plate_int)
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
         
-    if label_prefix in ["basic", "state", "diplomatic"]: col += 60 
-    elif label_prefix == "foreign": col += 55 
+    if label_prefix in ["basic", "state"]: col += 60 
+    elif label_prefix in ["foreign","diplomatic"]: col += 55 
         
     # character 8
     if label_prefix in ["foreign", "diplomatic"]:
         if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
-            plate_int = num_list[plate_int]
+            plate_int = get_random_int(num_list, 0, len(num_list), 1)
         else:
             plate_int = plate_chars[-1] if label_prefix == "foreign" else plate_chars[-2]
         label += str(plate_int)
@@ -113,8 +109,7 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     
     else:
         if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
-            plate_int = char_list[plate_int]
+            plate_int = get_random_int(char_list, 0, len(char_list), 1)
         else:
             plate_int = (plate_chars[-1])
 
@@ -126,9 +121,9 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
             col += (char_size[0] + region_size[0]) 
     
     if label_prefix == "diplomatic":
-        col += 60
+        col += 55
         if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
+            plate_int = int(np.random.randint(low=0, high=len(num_list), size=1))
             plate_int = num_list[plate_int]
         else:
             plate_int = plate_chars[-1]
@@ -177,8 +172,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
     if label_prefix in ["foreign", "basic", "diplomatic"]:
 
         if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
-            plate_int = char_list[plate_int]
+            plate_int = get_random_int(char_list, 0, len(char_list), 1)
         else:
             plate_int = (plate_chars[-6]) if label_prefix == "basic" else ((plate_chars[-7]) if label_prefix == "foreign" else (plate_chars[0]))
         
