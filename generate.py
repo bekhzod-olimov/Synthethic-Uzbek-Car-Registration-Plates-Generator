@@ -5,21 +5,16 @@ import numpy as np
 
 def run(args):
     
-    def split_and_generate(generator, sample, save, num):
-
-        generator.generate(sample, args.save, num=num, plate_type=None, region=None)
-
     if args.random:
         generator = PlateGenerator(save_path=args.save_path, random=args.random)
-        split_and_generate(generator=generator, sample=None, save=args.save, num=args.number_of_plates)    
-
+        generator.generate(save=args.save, num=args.number_of_plates, plate=None, plate_type=None, region=None)
+        
     else:
         df = pd.read_csv(args.data_path)
         texts = [os.path.basename(filename) for filename in df["filename"]]
         generator = PlateGenerator(save_path=args.save_path, random=args.random)    
-        
         for text in texts:
-            split_and_generate(generator, text, args.save, 1)    
+            generator.generate(text, args.save, num=1, plate_type=None, region=None)
 
 if __name__ == "__main__":
     
@@ -34,19 +29,3 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     run(args) 
-    
-    
-    
-    
-# def split_and_generate(generator, sample, save, num):
-
-#         for _ in range(num):
-            
-#             plate_types = ["basic", "state", "foreign_res", "foreign_comp", "diplomatic"]
-#             random_int = int(np.random.randint(low=0, high=len(plate_types), size=1))
-#             plate_type = plate_types[random_int]
-#             print(f"Plate type: {plate_type}")
-#             sample = "01227AAA" if plate_type == "state" else ("01A227AA" if plate_type == "basic" else ("01H012345" if plate_type == "foreign_res" else ("T012345" if plate_type == "diplomatic" else "01H012345")))
-#             split_ = os.path.splitext(os.path.basename(sample))[0]
-#             region = split_[:2]
-#             generator.generate(sample, args.save, num=num, plate_type=plate_type, region=region)
