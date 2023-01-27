@@ -140,11 +140,9 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
     
     else:
         if random:
-            plate_int = int(np.random.randint(low=0, high=len(regions), size=1))
-            random_region = regions[plate_int]
+            random_region = regions[int(np.random.choice(np.arange(0, len(regions)), p=[0.12, 0.08, 0.04, 0.04, 0.1, 0.1, 0.08, 0.08, 0.08, 0.07, 0.08, 0.05, 0.0409999999999805, 0.03900000000001977]))]
             label += str(num_list[int(random_region[0])])
             plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(random_region[0])], (init_size[1], num_size[0]))
-
         else:
             plate_int = int(plate_chars[0])
             label += str(num_list[plate_int])
@@ -154,7 +152,6 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
     # number 2
     if label_prefix == "diplomatic":
         col += 25
-    
     else:
         if random:
             label += str(num_list[int(random_region[1])])
@@ -212,16 +209,16 @@ def save(plate, save_path, transformations, label):
 
 def load(files_path):
     
-    chars_paths = sorted(os.listdir(files_path))
-    ims, chars = {}, [] 
+    files_paths = sorted(os.listdir(files_path))
+    ims, files = {}, [] 
 
-    for char_path in chars_paths:
+    for char_path in files_paths:
         fname = os.path.splitext(char_path)[0]
         im = cv2.imread(os.path.join(files_path, char_path))
         ims[fname] = im
-        chars.append(char_path[0:-4])
+        files.append(char_path[0:-4])
         
-    return ims, chars
+    return ims, files
 
 def preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars):
     
