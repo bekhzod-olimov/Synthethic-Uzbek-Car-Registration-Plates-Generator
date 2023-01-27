@@ -39,7 +39,7 @@ class PlateGenerator:
         for _ in range(num):
             
             if self.random:
-                plate_type = plate_types[int(np.random.randint(low=0, high=len(plate_types), size=1))]                
+                plate_type = plate_types[int(np.random.choice(np.arange(0, len(plate_types)), p=[0.4, 0.23, 0.15, 0.11, 0.11]))]
                 plate = "01227AAA" if plate_type == "state" else ("01A227AA" if plate_type == "basic" else ("01H012345" if plate_type == "foreign_res" else ("T012345" if plate_type == "diplomatic" else "01H012345")))
             
             else: plate_type = self.get_plate_type(plate)
