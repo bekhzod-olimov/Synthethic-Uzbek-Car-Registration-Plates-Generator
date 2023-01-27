@@ -7,7 +7,6 @@ class PlateGenerator:
         self.save_path = save_path
         self.random = random
 
-        # Basic nums and chars
         self.num_ims, self.num_lists = load("./digits/")
         self.char_ims, self.char_lists = load("./characters/")
         
@@ -50,7 +49,6 @@ class PlateGenerator:
             
             else:
                 self.assertion(region, self.regions)
-
                 generate_plate(plate_path=plate_path, random=self.random,
                            plate=plate, num_size=(55, 78),
                            num_list=num_list, init_size=(13, 45), 
