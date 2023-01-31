@@ -15,17 +15,17 @@ def copy_files(im_paths, destination):
     for file in im_paths:
         shutil.copy(file, destination)
         
-def get_train_ims(ims_paths): return sorted(glob(f"{ims_paths}/*/*{[im_file for im_file in im_files]}"))
-def get_test_ims(ims_paths): return sorted(glob(f"{ims_paths}/*{[im_file for im_file in im_files]}"))
+def get_train_ims(ims_paths, im_files): return sorted(glob(f"{ims_paths}/*/*{[im_file for im_file in im_files]}"))
+def get_test_ims(ims_paths, im_files): return sorted(glob(f"{ims_paths}/*{[im_file for im_file in im_files]}"))
 
 for arg in vars(args):
     print('[%s] = ' % arg, getattr(args, arg))
 
 im_files = [".jpg", ".png", ".jpeg"]
-input_im_paths = get_train_ims(args.in_im_paths)
+input_im_paths = get_train_ims(args.in_im_paths, im_files)
 print(f"There are {len(input_im_paths)} synthetic images!")
-if args.dataset_type == "test": output_im_paths = get_train_ims(args.in_im_paths)
-else: output_im_paths = get_test_ims(args.out_im_paths)
+if args.dataset_type == "test": output_im_paths = get_train_ims(args.in_im_paths, im_files)
+else: output_im_paths = get_test_ims(args.out_im_paths, im_files)
 print(f"There are {len(output_im_paths)} original images!")
 num_ims = min(args.num_ims, len(input_im_paths))
 
