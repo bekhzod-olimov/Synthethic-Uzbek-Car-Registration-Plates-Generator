@@ -31,32 +31,20 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         col += 55
     
     # number 4
-    if random:
-        plate_int = int(np.random.randint(low=0, high=9, size=1))
-        label += str(num_list[plate_int])
-        plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-    else:
-        plate_int = int(plate_chars[-5]) 
-        label += str(num_list[plate_int])
-        plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-        
+    plate_int = int(np.random.randint(low=0, high=9, size=1)) if random else int(plate_chars[-5])
+    label += str(num_list[plate_int])
+    plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
     col += 50
 
     # number 5
-    if random:
-        plate_int = int(np.random.randint(low=0, high=9, size=1))
-    else:
-        plate_int = int(plate_chars[-4])
-        
+    plate_int = int(np.random.randint(low=0, high=9, size=1)) if random else int(plate_chars[-4])
     label += str(num_list[plate_int])
     plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-    
     if label_prefix in ["basic", "foreign_res", "foreign_comp", "diplomatic"]: col += 50 
     elif label_prefix == "state": col += num_size[0] + 30
 
     # number 6
     if label_prefix in ["foreign_res", "foreign_comp", "basic"]:
-        
         if random:
             plate_int = int(np.random.randint(low=0, high=9, size=1))
         else:
@@ -198,15 +186,15 @@ def save(plate, save_path, transformations, label):
     if transformations:
         plate = random_bright(plate)
         tfs = albumentations.Compose([Affine(rotate=[-7, 7], shear=None, p=0.5),
-                         Perspective(scale=(0.05, 0.12), p=0.5)])
-        plate = tfs(image=Plate)["image"]
+                                      Perspective(scale=(0.02, 0.1), p=0.1)])
+        plate = tfs(image=plate)["image"]
     
     folder = label.split('__')[0]
     save_dir = os.path.join(save_path, folder)
     os.makedirs(save_dir, exist_ok = True)
-    cv2.imwrite(os.path.join(save_dir, f"{label.split('__')[1]}") + ".jpg", plate)
-    print(f"Plate {label.split('__')[1]}.jpg is saved to {save_dir}/!")
-
+    cv2.imwrite(os.path.join(save_dir, f"{label.split('__')[1]}__{folder}") + ".jpg", plate)
+    print(f"Plate {label.split('__')[1]}__{folder}.jpg is saved to {save_dir}/!")
+    
 def load(files_path):
     
     files_paths = sorted(os.listdir(files_path))
@@ -243,4 +231,4 @@ def generate_plate(plate_path, plate, plate_size, num_size, random,
                          char_ims=char_ims, char_size=char_size, region_size=region_size, regions=regions,
                          label_prefix=label_prefix, row=row, num_size=num_size, col=col)
 
-    if save_: save(plate=plate, save_path=save_path, transformations=False, label=label)
+    if save_: save(plate=plate, save_path=save_path, transformations=True, label=label)
