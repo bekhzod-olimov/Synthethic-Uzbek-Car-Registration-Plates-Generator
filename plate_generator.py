@@ -7,14 +7,14 @@ class PlateGenerator:
         self.save_path = save_path
         self.random = random
 
-        self.num_ims, self.num_lists = load("./digits/")
-        self.char_ims, self.char_lists = load("./characters/")
+        self.num_ims, self.num_lists = load("./digits/digits_white/")
+        self.char_ims, self.char_lists = load("./letters/letters_white/")
         
-        self.num_ims_yellow, self.num_lists_yellow = load("./digits_yellow/")
-        self.char_ims_yellow, self.char_lists_yellow = load("./characters_yellow/")
+        self.num_ims_yellow, self.num_lists_yellow = load("./digits/digits_yellow/")
+        self.char_ims_yellow, self.char_lists_yellow = load("./letters/letters_yellow/")
         
-        self.num_ims_green, self.num_lists_green = load("./digits_green/")
-        self.char_ims_green, self.char_lists_green = load("./characters_green/")
+        self.num_ims_green, self.num_lists_green = load("./digits/digits_green/")
+        self.char_ims_green, self.char_lists_green = load("./letters/letters_green/")
         
         self.regions = {"01": "Tashkent", "10": "Tashkent Region", "20": "Sirdaryo", "25": "Jizzakh", "30": "Samarqand", "40": "Fergana", "50": "Namangan", "60": "Andijan", "70": "Qashqadaryo", "75": "Surxondaryo", "80": "Bukhara", "85": "Navoiy", "90": "Xorazm", "95": "Karakalpakstan"}
         
