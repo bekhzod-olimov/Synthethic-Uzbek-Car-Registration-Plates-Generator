@@ -21,8 +21,7 @@ def get_random_int(li, low, high, size): return li[int(np.random.randint(low=low
 
 def get_label_and_plate(plate, plate_chars, label, li, row, col, num_ims, num_size, random, num):
     
-    plate_int = int(np.random.randint(low=0, high=len(li), size=1)) if random else int(plate_chars[num])
-    label += str(li[plate_int])
+    plate_int = li[int(np.random.randint(low=0, high=len(li), size=1)) if random else int(plate_chars[num])]
     plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
     
     return plate, label + str(plate_int), col   
@@ -52,14 +51,8 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         
         
     elif label_prefix == "state":
-            
-        if random:
-            plate_int = get_random_int(char_list, 0, len(char_list), 1)
-        else:
-            plate_int = (plate_chars[-3])
-            
-        label += str(plate_int)
-        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
+        
+        plate, label, col = get_label_and_plate(plate, plate_chars, label, char_list, row, col, char_ims, char_size, random, -3)
         col += 60
     
     # character 7
@@ -72,12 +65,7 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
     
     else:
-        if random:
-            plate_int = get_random_int(char_list, 0, len(char_list), 1)
-        else:
-            plate_int = (plate_chars[-2])
-        label += str(plate_int)
-        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
+        plate, label, col = get_label_and_plate(plate, plate_chars, label, char_list, row, col, char_ims, char_size, random, -2)
         
     if label_prefix in ["basic", "state"]: col += 60 
     elif label_prefix in ["foreign_res", "foreign_comp","diplomatic"]: col += 55 
@@ -92,27 +80,13 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
     
     else:
-        if random:
-            plate_int = get_random_int(char_list, 0, len(char_list), 1)
-        else:
-            plate_int = (plate_chars[-1])
-
-        label += str(plate_int)
-        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
-        if label_prefix == "short":
-            col += (char_size[0] + init_size[1])
-        else:
-            col += (char_size[0] + region_size[0]) 
-    
+        plate, label, col = get_label_and_plate(plate, plate_chars, label, char_list, row, col, char_ims, char_size, random, -1)
+        
+        col += (char_size[0] + region_size[0])
+        
     if label_prefix == "diplomatic":
         col += 55
-        if random:
-            plate_int = int(np.random.randint(low=0, high=len(num_list), size=1))
-            plate_int = num_list[plate_int]
-        else:
-            plate_int = plate_chars[-1]
-        label += str(plate_int)
-        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
+        plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, char_size, random, -1)
     
     return plate, label
     
