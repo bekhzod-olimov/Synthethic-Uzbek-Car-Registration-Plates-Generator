@@ -60,4 +60,3 @@ class PlateGenerator:
                        char_ims=char_ims, label_prefix=plate_type,
                        save_path=self.save_path, region_size=(25, 25),
                        save_=save, plate_size=(575, 110))
-
