@@ -33,42 +33,26 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, char_size, random, -6)
         col += 55
         
-        # if random:
-        #     plate_int = get_random_int(num_list, 0, len(num_list), 1)
-        # else:
-        #     plate_int = (plate_chars[-6])
-        # label += str(plate_int)
-        # plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
-        
     
     # number 4
     plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -5)
-    # plate_int = int(np.random.randint(low=0, high=9, size=1)) if random else int(plate_chars[-5])
-    # label += str(num_list[plate_int])
-    # plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
     col += 50
 
     # number 5
-    plate_int = int(np.random.randint(low=0, high=9, size=1)) if random else int(plate_chars[-4])
-    label += str(num_list[plate_int])
-    plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+    plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -4)
+    
     if label_prefix in ["basic", "foreign_res", "foreign_comp", "diplomatic"]: col += 50 
     elif label_prefix == "state": col += num_size[0] + 30
 
     # number 6
     if label_prefix in ["foreign_res", "foreign_comp", "basic"]:
-        if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
-        else:
-            plate_int = int(plate_chars[-3])
-
-        label += str(num_list[plate_int])
-        plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+        plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -3)
         if label_prefix == "basic": col += 70 
         elif label_prefix in ["foreign_res", "foreign_comp"]: col += 50 
-    
-    elif label_prefix == "state":
         
+        
+    elif label_prefix == "state":
+            
         if random:
             plate_int = get_random_int(char_list, 0, len(char_list), 1)
         else:
