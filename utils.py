@@ -32,7 +32,6 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, char_size, random, -6)
         col += 55
         
-    
     # number 4
     plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -5)
     col += 50
@@ -138,14 +137,8 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
 
     elif label_prefix == "state":
         
-        if random:
-            plate_int = int(np.random.randint(low=0, high=9, size=1))
-        else:
-            plate_int = int(plate_chars[-6])
-        
-        label += str(num_list[plate_int])
-        plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
-        col += 50 
+        plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -6)
+        col += 50
         
     plate, label = partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix) 
         
