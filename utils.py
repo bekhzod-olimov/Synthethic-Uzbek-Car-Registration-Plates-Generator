@@ -18,22 +18,34 @@ def random_bright(img):
     return img
 
 def get_random_int(li, low, high, size): return li[int(np.random.randint(low=low, high=high, size=size))]
+
+def get_label_and_plate(plate, plate_chars, label, li, row, col, num_ims, num_size, random, num):
+    
+    plate_int = int(np.random.randint(low=0, high=len(li), size=1)) if random else int(plate_chars[num])
+    label += str(li[plate_int])
+    plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+    
+    return plate, label + str(plate_int), col   
     
 def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix):
     
     if label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]:
-        if random:
-            plate_int = get_random_int(num_list, 0, len(num_list), 1)
-        else:
-            plate_int = (plate_chars[-6])
-        label += str(plate_int)
-        plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
+        plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, char_size, random, -6)
         col += 55
+        
+        # if random:
+        #     plate_int = get_random_int(num_list, 0, len(num_list), 1)
+        # else:
+        #     plate_int = (plate_chars[-6])
+        # label += str(plate_int)
+        # plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
+        
     
     # number 4
-    plate_int = int(np.random.randint(low=0, high=9, size=1)) if random else int(plate_chars[-5])
-    label += str(num_list[plate_int])
-    plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+    plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -5)
+    # plate_int = int(np.random.randint(low=0, high=9, size=1)) if random else int(plate_chars[-5])
+    # label += str(num_list[plate_int])
+    # plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
     col += 50
 
     # number 5
