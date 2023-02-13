@@ -20,10 +20,10 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description="Synthetic Uzbek Car Registration Plates Generator")
     
-    parser.add_argument("-dp", "--data_path", help = "Path to the csv file with plate numbers", type = str, default = "uzbek.csv")
-    parser.add_argument("-sp", "--save_path", help = "Directory to save generated images", type = str, default = "./new_samples/aaa/")
+    parser.add_argument("-dp", "--data_path", help = "Path to the csv file with plate numbers", type = str, default = "test.csv")
+    parser.add_argument("-sp", "--save_path", help = "Directory to save generated images", type = str, default = "./new_samples/bb/")
     parser.add_argument("-s", "--save", help = "Saving option", type = bool, default = True)
-    parser.add_argument("-np", "--number_of_plates", help = "Number of images to generate", type = int, default = 10000)
+    parser.add_argument("-np", "--number_of_plates", help = "Number of images to generate", type = int, default = 7000)
     parser.add_argument("-r", "--random", help = "Generate random plate numbers", type = bool, default = True)
     
     
