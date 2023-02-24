@@ -17,7 +17,7 @@ def random_bright(img):
     
     return img
 
-def get_random_int(li, *args): return li[int(np.random.randint(low=low, high=high, size=size))]
+def get_random_int(*args): return args[0][int(np.random.randint(low=args[1], high=len(args[0]), size=args[2]))]
 
 def get_label_and_plate(*args, **kwargs):
     
@@ -64,7 +64,7 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     # character 7
     if label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]:
         if random:
-            plate_int = get_random_int(num_list, 0, len(num_list), 1)
+            plate_int = get_random_int(num_list, 0, 1)
         else:
             plate_int = plate_chars[-2] if label_prefix == "foreign" else plate_chars[-3]
         label += str(plate_int)
@@ -81,7 +81,7 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     # character 8
     if label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]:
         if random:
-            plate_int = get_random_int(num_list, 0, len(num_list), 1)
+            plate_int = get_random_int(num_list, 0, 1)
         else:
             plate_int = plate_chars[-1] if label_prefix in ["foreign_res", "foreign_comp"] else plate_chars[-2]
         label += str(plate_int)
@@ -138,7 +138,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
     if label_prefix in ["foreign_res", "foreign_comp", "basic", "diplomatic"]:
 
         if random:
-            plate_int = get_random_int(char_list, 0, len(char_list), 1)
+            plate_int = get_random_int(char_list, 0, 1)
         else:
             plate_int = (plate_chars[-6]) if label_prefix == "basic" else ((plate_chars[-7]) if label_prefix in ["foreign_res", "foreign_comp"] else (plate_chars[0]))
         
@@ -195,17 +195,30 @@ def preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars):
     
     return plate, label, row, col
 
-def generate_plate(plate_path, plate, plate_size, num_size, random, transformations,
-                   char_size, init_size, num_list, char_list, num_ims, char_ims, 
-                   regions, region, region_size, save_path, label_prefix, save_):
+# def generate_plate(plate_path, plate, plate_size, num_size, random, transformations,
+#                    char_size, init_size, num_list, char_list, num_ims, char_ims, 
+#                    regions, region, region_size, save_path, label_prefix, save_):
     
-    plate_chars = [char for char in plate]
+#     plate_chars = [char for char in plate]
     
-    plate, label, row, col = preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars)
+#     plate, label, row, col = preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars)
     
-    plate, label = write(plate=plate, label=label, num_list=num_list, num_ims=num_ims, random=random, 
-                         init_size=init_size, plate_chars=plate_chars, char_list=char_list,
-                         char_ims=char_ims, char_size=char_size, region_size=region_size, regions=regions,
-                         label_prefix=label_prefix, row=row, num_size=num_size, col=col)
+#     plate, label = write(plate=plate, label=label, num_list=num_list, num_ims=num_ims, random=random, 
+#                          init_size=init_size, plate_chars=plate_chars, char_list=char_list,
+#                          char_ims=char_ims, char_size=char_size, region_size=region_size, regions=regions,
+#                          label_prefix=label_prefix, row=row, num_size=num_size, col=col)
 
-    if save_: save(plate=plate, save_path=save_path, transformations=transformations, label=label)
+#     if save_: save(plate=plate, save_path=save_path, transformations=transformations, label=label)
+    
+def generate_plate(**kwargs):
+    
+    plate_chars = [char for char in kwargs["plate"]]
+    
+    plate, label, row, col = preprocess(kwargs["plate_path"], kwargs["plate_size"], kwargs["label_prefix"], kwargs["region_size"], plate_chars)
+    
+    plate, label = write(plate=plate, label=label, num_list=kwargs["num_list"], num_ims=kwargs["num_ims"], random=kwargs["random"], 
+                         init_size=kwargs["init_size"], char_list=kwargs["char_list"], plate_chars=plate_chars,
+                         char_ims=kwargs["char_ims"], char_size=kwargs["char_size"], region_size=kwargs["region_size"], regions=kwargs["regions"],
+                         label_prefix=kwargs["label_prefix"], row=row, num_size=kwargs["num_size"], col=col)
+
+    if kwargs["save_"]: save(plate=plate, save_path=kwargs["save_path"], transformations=kwargs["transformations"], label=label)
