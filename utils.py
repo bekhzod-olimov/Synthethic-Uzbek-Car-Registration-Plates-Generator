@@ -95,7 +95,6 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         
     if label_prefix == "diplomatic":
         col += 55
-        # plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, char_size, random, -1, True)
         plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
                                                 num_ims=num_ims, num_size=num_size, ran=random, num=-1, tt=True)
     
