@@ -21,12 +21,11 @@ class PlateGenerator:
         
         self.plate_types = ["basic", "state", "foreign_res", "foreign_comp", "diplomatic"]
         
-    def assertion(self, region, regions):
+    def assertion(self, *args):
         
-        assert region != None, f"Please insert a region name!"
-        
-        if region[0].isalpha() and region[1].isdigit(): pass
-        else: assert region in [os.path.basename(region) for region in regions], f"Please choose one region based on these information: {self.regions}"
+        assert args[0] != None, f"Please insert a region name!"
+        if args[0][0].isalpha() and args[0][1].isdigit(): pass
+        else: assert args[0] in [os.path.basename(region) for region in args[1]], f"Please choose one region based on these information: {args[1]}"
         
     def get_plate_type(self, plate):
         
@@ -43,8 +42,8 @@ class PlateGenerator:
                 plate_type = self.plate_types[int(np.random.choice(np.arange(0, len(self.plate_types)), p=[0.4, 0.23, 0.15, 0.11, 0.11]))]
                 plate = "01227AAA" if plate_type == "state" else ("01A227AA" if plate_type == "basic" else ("01H012345" if plate_type == "foreign_res" else ("T012345" if plate_type == "diplomatic" else "01H012345")))
             
-            # else: plate_type = self.get_plate_type(plate)
-            else: plate_type = plate_type
+            else: plate_type = self.get_plate_type(plate)
+            # else: plate_type = plate_type
             
             print(f"Plate type: {plate_type}")
             plate_path, num_list, char_list, num_ims, char_ims = "plates/plate_basic.jpg", self.num_lists, self.char_lists, self.num_ims, self.char_ims
