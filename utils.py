@@ -1,6 +1,6 @@
-import os, random, math
-import cv2
+import os, random, math, cv2
 import numpy as np
+from PIL import Image
 import pandas as pd
 from albumentations.augmentations.geometric.transforms import *
 import albumentations
@@ -17,41 +17,56 @@ def random_bright(img):
     
     return img
 
-def get_random_int(li, low, high, size): return li[int(np.random.randint(low=low, high=high, size=size))]
+def get_random_int(li, *args): return li[int(np.random.randint(low=low, high=high, size=size))]
 
-def get_label_and_plate(plate, plate_chars, label, li, row, col, num_ims, num_size, random, num):
+def get_label_and_plate(*args, **kwargs):
     
-    plate_int = li[int(np.random.randint(low=0, high=len(li), size=1)) if random else int(plate_chars[num])]
-    plate[row:row + num_size[1], col:col + num_size[0], :] = cv2.resize(num_ims[str(plate_int)], num_size)
+    plate_int = kwargs["li"][int(np.random.randint(low=0, high=len(kwargs["li"]), size=1))] if True else (int(kwargs["plate_chars"][kwargs["num"]]) if kwargs["tt"] else kwargs["plate_chars"][kwargs["num"]])
+    kwargs["plate"][kwargs["row"]:kwargs["row"] + kwargs["num_size"][1], kwargs["col"]:kwargs["col"] + kwargs["num_size"][0], :] = cv2.resize(kwargs["num_ims"][str(plate_int)], kwargs["num_size"])
     
-    return plate, label + str(plate_int), col   
-    
+    return kwargs["plate"], kwargs["label"] + str(plate_int), kwargs["col"]   
+
+
 def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix):
     
     if label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]:
-        plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, char_size, random, -6)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
+                                                label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, 
+                                                ran=random, num=-6, tt=True)
         col += 55
         
     # number 4
-    plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -5)
+    plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
+                                                label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, 
+                                                ran=random, num=-5, tt=True)
     col += 50
 
     # number 5
-    plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -4)
+    plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
+                                            num_ims=num_ims, num_size=num_size, ran=random, num=-4, tt=True)
     
     if label_prefix in ["basic", "foreign_res", "foreign_comp", "diplomatic"]: col += 50 
     elif label_prefix == "state": col += num_size[0] + 30
 
     # number 6
     if label_prefix in ["foreign_res", "foreign_comp", "basic"]:
-        plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -3)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
+                                                label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, 
+                                                ran=random, num=-3, tt=True)
         if label_prefix == "basic": col += 70 
         elif label_prefix in ["foreign_res", "foreign_comp"]: col += 50 
         
         
     elif label_prefix == "state":
         
-        plate, label, col = get_label_and_plate(plate, plate_chars, label, char_list, row, col, char_ims, char_size, random, -3)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
+                                                label=label, li=char_list, row=row, col=col, 
+                                                num_ims=char_ims, num_size=char_size, 
+                                                ran=random, num=-3, tt=True)
+        
         col += 60
     
     # character 7
@@ -64,7 +79,11 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
     
     else:
-        plate, label, col = get_label_and_plate(plate, plate_chars, label, char_list, row, col, char_ims, char_size, random, -2)
+        
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
+                                                label=label, li=char_list, row=row, col=col, 
+                                                num_ims=char_ims, num_size=char_size, 
+                                                ran=random, num=-2, tt=True)
         
     if label_prefix in ["basic", "state"]: col += 60 
     elif label_prefix in ["foreign_res", "foreign_comp","diplomatic"]: col += 55 
@@ -79,13 +98,24 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
     
     else:
-        plate, label, col = get_label_and_plate(plate, plate_chars, label, char_list, row, col, char_ims, char_size, random, -1)
         
-        col += (char_size[0] + region_size[0])
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
+                                                label=label, li=char_list, row=row, col=col, 
+                                                num_ims=char_ims, num_size=char_size, 
+                                                ran=random, num=-1, tt=True)
+        # plate, label, col = get_label_and_plate(plate, plate_chars, label, char_list, row, col, char_ims, char_size, random, -1, False)
+        # char = plate_chars[-1]
+        # plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[str(char)], char_size)
+        # label += str(char)
+        col += 50
         
     if label_prefix == "diplomatic":
         col += 55
-        plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, char_size, random, -1)
+        # plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, char_size, random, -1, True)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
+                                                label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, 
+                                                ran=random, num=-1, tt=True)
     
     return plate, label
     
@@ -137,7 +167,12 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
 
     elif label_prefix == "state":
         
-        plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -6)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
+                                                label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, 
+                                                ran=random, num=-6, tt=True)
+        # plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -6, True)
+        
         col += 50
         
     plate, label = partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix) 
@@ -156,7 +191,7 @@ def save(plate, save_path, transformations, label):
     save_dir = os.path.join(save_path, folder)
     os.makedirs(save_dir, exist_ok = True)
     cv2.imwrite(os.path.join(save_dir, f"{label.split('__')[1]}__{folder}") + ".jpg", plate)
-    print(f"Plate {label.split('__')[1]}__{folder}.jpg is saved to {save_dir}/!")
+    # print(f"Plate {label.split('__')[1]}__{folder}.jpg is saved to {save_dir}/!")
     
 def load(files_path):
     
@@ -181,7 +216,7 @@ def preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars):
     
     return plate, label, row, col
 
-def generate_plate(plate_path, plate, plate_size, num_size, random,
+def generate_plate(plate_path, plate, plate_size, num_size, random, transformations,
                    char_size, init_size, num_list, char_list, num_ims, char_ims, 
                    regions, region, region_size, save_path, label_prefix, save_):
     
@@ -194,4 +229,4 @@ def generate_plate(plate_path, plate, plate_size, num_size, random,
                          char_ims=char_ims, char_size=char_size, region_size=region_size, regions=regions,
                          label_prefix=label_prefix, row=row, num_size=num_size, col=col)
 
-    if save_: save(plate=plate, save_path=save_path, transformations=True, label=label)
+    if save_: save(plate=plate, save_path=save_path, transformations=transformations, label=label)
