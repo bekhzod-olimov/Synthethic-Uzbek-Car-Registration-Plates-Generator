@@ -21,7 +21,7 @@ class PlateGenerator:
         
         self.plate_types = ["basic", "state", "foreign_res", "foreign_comp", "diplomatic"]
         
-    def assertion(self, *args):
+    def assert_(self, *args):
         
         assert args[0] != None, f"Please insert a region name!"
         if args[0][0].isalpha() and args[0][1].isdigit(): pass
@@ -53,7 +53,7 @@ class PlateGenerator:
 
             # print(f"Plate type: {plate_type}")
             region = os.path.splitext(os.path.basename(plate))[0][:2]
-            self.assertion(region, self.regions)
+            self.assert_(region, self.regions)
             generate_plate(plate_path=plate_path, random=self.random,
                        plate=plate, num_size=(55, 78), transformations=self.transformations,
                        num_list=num_list, init_size=(13, 45), 
