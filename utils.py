@@ -185,36 +185,21 @@ def load(files_path):
         
     return ims, files
 
-def preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars):
+def preprocess(*args):
     
-    plate = cv2.resize(cv2.imread(plate_path), plate_size)
-    label = f"{label_prefix}__" 
+    plate = cv2.resize(cv2.imread(args[0]), args[1])
+    label = f"{args[2]}__" 
     
-    if label_prefix in ["foreign_res"]: row, col = region_size[0] + 3, region_size[1] + 8
-    else: row, col = region_size[0], region_size[1]
+    if args[2] in ["foreign_res"]: row, col = args[3][0] + 3, args[3][1] + 8
+    else: row, col = args[3][0], args[3][1]
     
     return plate, label, row, col
 
-# def generate_plate(plate_path, plate, plate_size, num_size, random, transformations,
-#                    char_size, init_size, num_list, char_list, num_ims, char_ims, 
-#                    regions, region, region_size, save_path, label_prefix, save_):
-    
-#     plate_chars = [char for char in plate]
-    
-#     plate, label, row, col = preprocess(plate_path, plate_size, label_prefix, region_size, plate_chars)
-    
-#     plate, label = write(plate=plate, label=label, num_list=num_list, num_ims=num_ims, random=random, 
-#                          init_size=init_size, plate_chars=plate_chars, char_list=char_list,
-#                          char_ims=char_ims, char_size=char_size, region_size=region_size, regions=regions,
-#                          label_prefix=label_prefix, row=row, num_size=num_size, col=col)
-
-#     if save_: save(plate=plate, save_path=save_path, transformations=transformations, label=label)
-    
 def generate_plate(**kwargs):
     
     plate_chars = [char for char in kwargs["plate"]]
     
-    plate, label, row, col = preprocess(kwargs["plate_path"], kwargs["plate_size"], kwargs["label_prefix"], kwargs["region_size"], plate_chars)
+    plate, label, row, col = preprocess(kwargs["plate_path"], kwargs["plate_size"], kwargs["label_prefix"], kwargs["region_size"])
     
     plate, label = write(plate=plate, label=label, num_list=kwargs["num_list"], num_ims=kwargs["num_ims"], random=kwargs["random"], 
                          init_size=kwargs["init_size"], char_list=kwargs["char_list"], plate_chars=plate_chars,
