@@ -30,17 +30,13 @@ def get_label_and_plate(*args, **kwargs):
 def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix):
     
     if label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]:
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
-                                                label=label, li=num_list, row=row, col=col, 
-                                                num_ims=num_ims, num_size=num_size, 
-                                                ran=random, num=-6, tt=True)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, ran=random, num=-6, tt=True)
         col += 55
         
     # number 4
-    plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
-                                                label=label, li=num_list, row=row, col=col, 
-                                                num_ims=num_ims, num_size=num_size, 
-                                                ran=random, num=-5, tt=True)
+    plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, ran=random, num=-5, tt=True)
     col += 50
 
     # number 5
@@ -52,20 +48,16 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
 
     # number 6
     if label_prefix in ["foreign_res", "foreign_comp", "basic"]:
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
-                                                label=label, li=num_list, row=row, col=col, 
-                                                num_ims=num_ims, num_size=num_size, 
-                                                ran=random, num=-3, tt=True)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, ran=random, num=-3, tt=True)
         if label_prefix == "basic": col += 70 
         elif label_prefix in ["foreign_res", "foreign_comp"]: col += 50 
         
         
     elif label_prefix == "state":
         
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
-                                                label=label, li=char_list, row=row, col=col, 
-                                                num_ims=char_ims, num_size=char_size, 
-                                                ran=random, num=-3, tt=True)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=char_list, row=row, col=col, 
+                                                num_ims=char_ims, num_size=char_size, ran=random, num=-3, tt=True)
         
         col += 60
     
@@ -80,10 +72,8 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     
     else:
         
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
-                                                label=label, li=char_list, row=row, col=col, 
-                                                num_ims=char_ims, num_size=char_size, 
-                                                ran=random, num=-2, tt=True)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=char_list, row=row, col=col, 
+                                                num_ims=char_ims, num_size=char_size, ran=random, num=-2, tt=True)
         
     if label_prefix in ["basic", "state"]: col += 60 
     elif label_prefix in ["foreign_res", "foreign_comp","diplomatic"]: col += 55 
@@ -99,23 +89,15 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     
     else:
         
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
-                                                label=label, li=char_list, row=row, col=col, 
-                                                num_ims=char_ims, num_size=char_size, 
-                                                ran=random, num=-1, tt=True)
-        # plate, label, col = get_label_and_plate(plate, plate_chars, label, char_list, row, col, char_ims, char_size, random, -1, False)
-        # char = plate_chars[-1]
-        # plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[str(char)], char_size)
-        # label += str(char)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=char_list, row=row, col=col, 
+                                                num_ims=char_ims, num_size=char_size, ran=random, num=-1, tt=True)
         col += 50
         
     if label_prefix == "diplomatic":
         col += 55
         # plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, char_size, random, -1, True)
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
-                                                label=label, li=num_list, row=row, col=col, 
-                                                num_ims=num_ims, num_size=num_size, 
-                                                ran=random, num=-1, tt=True)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, ran=random, num=-1, tt=True)
     
     return plate, label
     
@@ -167,11 +149,8 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
 
     elif label_prefix == "state":
         
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars,
-                                                label=label, li=num_list, row=row, col=col, 
-                                                num_ims=num_ims, num_size=num_size, 
-                                                ran=random, num=-6, tt=True)
-        # plate, label, col = get_label_and_plate(plate, plate_chars, label, num_list, row, col, num_ims, num_size, random, -6, True)
+        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
+                                                num_ims=num_ims, num_size=num_size, ran=random, num=-6, tt=True)
         
         col += 50
         
