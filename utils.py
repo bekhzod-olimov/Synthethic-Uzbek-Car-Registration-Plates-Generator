@@ -158,18 +158,20 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
         
     return plate, label
 
-def save(plate, save_path, transformations, label):
+def save(**kwargs):
     
-    if transformations:
-        plate = random_bright(plate)
-        tfs = albumentations.Compose([Affine(rotate=[-7, 7], shear=None, p=0.5),
-                                      Perspective(scale=(0.02, 0.1), p=0.1)])
+    if kwargs["transformations"]:
+        
+        plate = random_bright(kwargs["plate"])
+        tfs = albumentations.Compose([Affine(rotate=[-7, 7], shear=None, p=0.5), Perspective(scale=(0.02, 0.1), p=0.1)])
         plate = tfs(image=plate)["image"]
     
-    folder = label.split('__')[0]
-    save_dir = os.path.join(save_path, folder)
+    else: plate = kwargs["plate"]
+    
+    folder = kwargs["label"].split('__')[0]
+    save_dir = os.path.join(kwargs["save_path"], folder)
     os.makedirs(save_dir, exist_ok = True)
-    cv2.imwrite(os.path.join(save_dir, f"{label.split('__')[1]}__{folder}") + ".jpg", plate)
+    cv2.imwrite(os.path.join(save_dir, f"{kwargs['label'].split('__')[1]}__{folder}") + ".jpg", plate)
     # print(f"Plate {label.split('__')[1]}__{folder}.jpg is saved to {save_dir}/!")
     
 def load(files_path):
