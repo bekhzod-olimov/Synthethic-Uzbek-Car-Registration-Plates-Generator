@@ -31,8 +31,10 @@ class PlateGenerator:
         self.num_ims_green, self.num_lists_green = load("./digits/digits_green/")
         self.char_ims_green, self.char_lists_green = load("./letters/letters_green/")
         
+        # Initialize a dictionary with region numbers as keys and region names as values
         self.regions = {"01": "Tashkent", "10": "Tashkent Region", "20": "Sirdaryo", "25": "Jizzakh", "30": "Samarqand", "40": "Fergana", "50": "Namangan", "60": "Andijan", "70": "Qashqadaryo", "75": "Surxondaryo", "80": "Bukhara", "85": "Navoiy", "90": "Xorazm", "95": "Karakalpakstan"}
         
+        # Initialize a list with lp types
         self.plate_types = ["basic", "state", "foreign_res", "foreign_comp", "diplomatic"]
         
     def assert_(self, *args):
