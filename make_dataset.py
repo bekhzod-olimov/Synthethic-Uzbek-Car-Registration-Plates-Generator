@@ -37,9 +37,15 @@ def get_test_ims(ims_paths, im_files): return sorted(glob(f"{ims_paths}/*{[im_fi
 for arg in vars(args):
     print('[%s] = ' % arg, getattr(args, arg))
 
+
+# Initialize a list with proper image filetypes 
 im_files = [".jpg", ".png", ".jpeg"]
+
+# Get input image paths for train
 input_im_paths = get_train_ims(args.in_im_paths, im_files)
 print(f"There are {len(input_im_paths)} synthetic images!")
+
+# Get input image paths for test
 if args.dataset_type == "test": output_im_paths = get_train_ims(args.in_im_paths, im_files)
 else: output_im_paths = get_test_ims(args.out_im_paths, im_files)
 print(f"There are {len(output_im_paths)} original images!")
