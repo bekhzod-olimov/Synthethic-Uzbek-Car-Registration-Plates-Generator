@@ -39,6 +39,17 @@ class PlateGenerator:
         
     def assert_(self, *args):
         
+        """
+
+        This function asserts that given region name is in the region names list.
+        
+        Argument:
+            
+            region_name - name of the specific region;
+            regions - regions list.
+        
+        """
+        
         assert args[0] != None, f"Please insert a region name!"
         if args[0][0].isalpha() and args[0][1].isdigit(): pass
         else: assert args[0] in [os.path.basename(region) for region in args[1]], f"Please choose one region based on these information: {args[1]}"
