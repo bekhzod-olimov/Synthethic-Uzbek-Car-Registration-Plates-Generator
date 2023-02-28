@@ -56,6 +56,20 @@ class PlateGenerator:
         
     def get_plate_type(self, plate):
         
+        """
+        
+        This function gets plate and return type of the lp.
+        
+        Argument:
+            
+            plate - license plate.
+            
+        Output:
+        
+            plate type.
+        
+        """
+        
         if plate[0].isalpha(): return "diplomatic"
         elif plate[-1].isdigit(): return "foreign_res"
         elif plate[2].isalpha(): return "basic"
