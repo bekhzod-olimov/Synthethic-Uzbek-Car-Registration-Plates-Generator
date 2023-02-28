@@ -1,17 +1,33 @@
+# Import libraries
 import os, cv2, argparse, shutil
 import numpy as np
 from glob import glob
 
+# Add arguments
 parser = argparse.ArgumentParser('Make Dataset for CUT train')
+
 parser.add_argument('--in_im_paths', help = 'Input Images Path', type = str, default='/home/ubuntu/workspace/bekhzod/imagen/UzbekLicencePlateGenerator/new_samples/to_test_new')
 parser.add_argument('--out_im_paths', help='Output Images Path', type = str, default='/home/ubuntu/workspace/bekhzod/imagen/lp_recognition_cropped/val')
 parser.add_argument('--trainA', help = 'trainA Path', type = str, default='/home/ubuntu/workspace/bekhzod/cut/datasets/testing/trainA')
 parser.add_argument('--trainB', help='trainB Path', type = str, default='/home/ubuntu/workspace/bekhzod/cut/datasets/testing/trainB')
 parser.add_argument('--dataset_type', help='Make train or test dataset', type = str, default='train')
 parser.add_argument('--num_imgs', dest='num_ims', help='number of images', type=int, default=1000000)
+
+# Parse the arguments
 args = parser.parse_args()
 
 def copy_files(im_paths, destination): 
+    
+    """
+    This function gets image paths and destination and copies the images to the destination.
+    
+    Arguments:
+    
+        im_paths - paths to the images from domain A and B;
+        destination - path to the directory to copy the images.
+    
+    """
+    
     for file in im_paths:
         shutil.copy(file, destination)
         
