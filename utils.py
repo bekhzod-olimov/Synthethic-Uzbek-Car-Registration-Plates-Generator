@@ -28,7 +28,22 @@ def random_bright(im):
     
     return cv2.cvtColor(np.array(im, dtype=np.uint8), cv2.COLOR_HSV2RGB)
 
-def get_random_int(*args): return args[0][int(np.random.randint(low=args[1], high=len(args[0]), size=args[2]))]
+def get_random_int(*args): 
+    
+    """
+    
+    This function gets arguments and returns random instance of the list.
+    
+    Arguments:
+    
+        li - pre-defined list;
+        low - low value for the list, int;
+        high - high value for the list, int;
+        size - number of instances to be returned, int.
+    
+    """
+    
+    return args[0][int(np.random.randint(low=args[1], high=len(args[0]), size=args[2]))]
 
 def get_label_and_plate(*args, **kwargs):
     
