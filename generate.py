@@ -18,8 +18,7 @@ def run(args):
     
     generator = PlateGenerator(save_path=args.save_path, random=args.random, transformations=args.transform)
 
-    if args.random:
-        generator.generate(save=args.save, num=args.number_of_plates, plate=None, plate_type=None, region=None)
+    if args.random: generator.generate(save = args.save, num = args.number_of_plates, plate = None, plate_type = None, region = None)
         
     else:
         df = open(args.data_path, 'r')
@@ -41,4 +40,4 @@ if __name__ == "__main__":
     
     
     args = parser.parse_args()
-    run(args) 
+    run(args)
