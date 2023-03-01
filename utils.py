@@ -36,8 +36,8 @@ def get_random_int(*args):
     
     Arguments:
     
-        li - pre-defined list;
-        low - low value for the list, int;
+        li   - pre-defined list;
+        low  - low value for the list, int;
         high - high value for the list, int;
         size - number of instances to be returned, int.
     
@@ -47,11 +47,22 @@ def get_random_int(*args):
 
 def get_label_and_plate(*args, **kwargs):
     
+    """
+    
+    This function gets arguments and keywork arguments and returns plate, label, and column value.
+    
+    Outputs:
+    
+        plate - a plate image, array;
+        label - label for the plate, str;
+        col   - column value, int.
+    
+    """
+    
     plate_int = kwargs["li"][int(np.random.randint(low=0, high=len(kwargs["li"]), size=1))] if True else (int(kwargs["plate_chars"][kwargs["num"]]) if kwargs["tt"] else kwargs["plate_chars"][kwargs["num"]])
     kwargs["plate"][kwargs["row"]:kwargs["row"] + kwargs["num_size"][1], kwargs["col"]:kwargs["col"] + kwargs["num_size"][0], :] = cv2.resize(kwargs["num_ims"][str(plate_int)], kwargs["num_size"])
     
     return kwargs["plate"], kwargs["label"] + str(plate_int), kwargs["col"]   
-
 
 def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix):
     
