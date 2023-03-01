@@ -1,21 +1,32 @@
-import os, random, math, cv2
+# Import libraries
+import os, random, math, cv2, albumentations
 import numpy as np
 from PIL import Image
 import pandas as pd
 from albumentations.augmentations.geometric.transforms import *
-import albumentations
 
-def random_bright(img):
+def random_bright(im):
     
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
-    img = np.array(img, dtype=np.float64)
+    """
+    
+    This function gets an input image and applies random brightness.
+    
+    Argument:
+    
+        im - an input image, cv image.
+        
+    OutputL
+        
+        an output image with applied random brightness.
+    
+    """
+    
+    im = np.array(cv2.cvtColor(im, cv2.COLOR_RGB2HSV), dtype=np.float64)
     random_bright = .5 + np.random.uniform()
-    img[:, :, 2] = img[:, :, 2] * random_bright
-    img[:, :, 2][img[:, :, 2] > 255] = 255
-    img = np.array(img, dtype=np.uint8)
-    img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
+    im[:, :, 2] = im[:, :, 2] * random_bright
+    im[:, :, 2][im[:, :, 2] > 255] = 255
     
-    return img
+    return cv2.cvtColor(np.array(im, dtype=np.uint8), cv2.COLOR_HSV2RGB)
 
 def get_random_int(*args): return args[0][int(np.random.randint(low=args[1], high=len(args[0]), size=args[2]))]
 
