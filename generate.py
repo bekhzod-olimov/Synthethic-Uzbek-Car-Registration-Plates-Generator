@@ -1,9 +1,20 @@
-from plate_generator import PlateGenerator
+# Import libraries
 import argparse, os
 import pandas as pd
 import numpy as np
+from plate_generator import PlateGenerator
 
 def run(args):
+    
+    """
+    
+    This function gets arguments and runs the code.
+    
+    Arguments:
+        
+        args - parsed arguments, Namespace object.
+    
+    """
     
     generator = PlateGenerator(save_path=args.save_path, random=args.random, transformations=args.transform)
 
