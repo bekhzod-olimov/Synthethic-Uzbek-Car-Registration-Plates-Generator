@@ -96,15 +96,19 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         # Increase the column value
         col += 55
         
-    # number 4
+    # Digit #4
+    # Get plate image, label string and column value
     plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
                                                 num_ims=num_ims, num_size=num_size, ran=random, num=-5, tt=True)
+    # Increase the column value
     col += 50
 
-    # number 5
+    # Digit #5
+    # Get plate image, label string and column value
     plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
                                             num_ims=num_ims, num_size=num_size, ran=random, num=-4, tt=True)
     
+    # Increase the column value
     if label_prefix in ["basic", "foreign_res", "foreign_comp", "diplomatic"]: col += 50 
     elif label_prefix == "state": col += num_size[0] + 30
 
