@@ -95,24 +95,38 @@ class PlateGenerator:
 
         """
         
+        # Go through the range of the pre-defined numbers to generate a specific number of LPs
         for _ in range(num):
             
+            # Random LP Generation
             if self.random:
+                
+                # Get plate type
                 plate_type = self.plate_types[int(np.random.choice(np.arange(0, len(self.plate_types)), p=[0.4, 0.23, 0.15, 0.11, 0.11]))]
+                
+                # Set a sample plate based on the plate type 
                 plate = "01227AAA" if plate_type == "state" else ("01A227AA" if plate_type == "basic" else ("01H012345" if plate_type == "foreign_res" else ("T012345" if plate_type == "diplomatic" else "01H012345")))
             
+            # Pre-defined LP Generation
             else: plate_type = self.get_plate_type(plate)
             # else: plate_type = plate_type
             
             print(f"Plate type: {plate_type}")
+            
+            # Set the variables based on the plate and plate type
             plate_path, num_list, char_list, num_ims, char_ims = "plates/plate_basic.jpg", self.num_lists, self.char_lists, self.num_ims, self.char_ims
             if plate_type == "diplomatic": plate_path, num_list, char_list, num_ims, char_ims = "plates/plate_diplomatic.jpg", self.num_lists_green, self.char_lists_green, self.num_ims_green, self.char_ims_green
             elif plate_type == "foreign_res": plate_path, num_list, char_list, num_ims, char_ims = "plates/plate_yellow.jpg", self.num_lists_yellow, self.char_lists_yellow, self.num_ims_yellow, self.char_ims_yellow
             elif plate_type == "foreign_comp": plate_path, num_list, char_list, num_ims, char_ims = "plates/plate_green.jpg", self.num_lists_green, self.char_lists_green, self.num_ims_green, self.char_ims_green
 
             # print(f"Plate type: {plate_type}")
+            # Get region name
             region = os.path.splitext(os.path.basename(plate))[0][:2]
+            
+            # Assertion
             self.assert_(region, self.regions)
+            
+            # Generate LP
             generate_plate(plate_path=plate_path, random=self.random,
                        plate=plate, num_size=(55, 78), transformations=self.transformations,
                        num_list=num_list, init_size=(13, 45), 
@@ -121,4 +135,3 @@ class PlateGenerator:
                        char_ims=char_ims, label_prefix=plate_type,
                        save_path=self.save_path, region_size=(25, 25),
                        save_=save, plate_size=(575, 110))
-
