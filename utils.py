@@ -66,6 +66,26 @@ def get_label_and_plate(*args, **kwargs):
 
 def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix):
     
+    """
+    
+    This function gets arguments and does partial LP generation.
+    
+    Arguments:
+    
+        plate    - a plate image, array;
+        label    - label for the LP, str;
+        num_list - digits for LP generation, list;
+        char_list - characters for LP generation, list;
+        num_ims - digit images for LP generation, dic;
+        char_ims - character images for LP generation, dic;
+        char_size - size of the characters, tuple;
+        region_size - size of the regions, tuple;
+        plate_chars - characters for plate, list;
+        
+        size - number of instances to be returned, int.
+    
+    """
+    
     if label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]:
         plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
                                                 num_ims=num_ims, num_size=num_size, ran=random, num=-6, tt=True)
