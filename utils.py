@@ -79,10 +79,13 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         num_ims - digit images for LP generation, dic;
         char_ims - character images for LP generation, dic;
         char_size - size of the characters, tuple;
+        num_size - size of the digits, tuple;
         region_size - size of the regions, tuple;
         plate_chars - characters for plate, list;
-        
-        size - number of instances to be returned, int.
+        row - value of the row, int;
+        col - value of the column, int;
+        random - randomness option, bool;
+        label_prefix - plate type, str.
     
     """
     
