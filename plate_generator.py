@@ -77,6 +77,24 @@ class PlateGenerator:
         
     def generate(self, plate, save, plate_type, num, region):
         
+        """
+        
+        This function gets plate save option, plate type, number, and region and generates LP.
+
+        Arguments:
+
+            plate      - license plate, str;
+            save       - saving option, bool;
+            plate_type - type a plate, str;
+            num        - number of plates to be generated (for random generation), int;
+            region     - name of the region for the plate, str.
+
+        Output:
+
+            plate      - a generated plate.
+
+        """
+        
         for _ in range(num):
             
             if self.random:
