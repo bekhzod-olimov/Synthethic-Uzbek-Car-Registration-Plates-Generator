@@ -72,26 +72,28 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     
     Arguments:
     
-        plate    - a plate image, array;
-        label    - label for the LP, str;
-        num_list - digits for LP generation, list;
-        char_list - characters for LP generation, list;
-        num_ims - digit images for LP generation, dic;
-        char_ims - character images for LP generation, dic;
-        char_size - size of the characters, tuple;
-        num_size - size of the digits, tuple;
-        region_size - size of the regions, tuple;
-        plate_chars - characters for plate, list;
-        row - value of the row, int;
-        col - value of the column, int;
-        random - randomness option, bool;
+        plate        - a plate image, array;
+        label        - label for the LP, str;
+        num_list     - digits for LP generation, list;
+        char_list    - characters for LP generation, list;
+        num_ims      - digit images for LP generation, dic;
+        char_ims     - character images for LP generation, dic;
+        char_size    - size of the characters, tuple;
+        num_size     - size of the digits, tuple;
+        region_size  - size of the regions, tuple;
+        plate_chars  - characters for plate, list;
+        row          - value of the row, int;
+        col          - value of the column, int;
+        random       - randomness option, bool;
         label_prefix - plate type, str.
     
     """
     
+    # Get plate image, label string and column value
     if label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]:
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
-                                                num_ims=num_ims, num_size=num_size, ran=random, num=-6, tt=True)
+        plate, label, col = get_label_and_plate(plate = plate, plate_chars = plate_chars, label = label, li = num_list, row = row, col = col, 
+                                                num_ims = num_ims, num_size = num_size, ran = random, num = -6, tt = True)
+        # Increase the column value
         col += 55
         
     # number 4
