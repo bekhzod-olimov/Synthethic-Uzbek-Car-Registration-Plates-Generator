@@ -151,13 +151,17 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     if label_prefix in ["basic", "state"]: col += 60 
     elif label_prefix in ["foreign_res", "foreign_comp","diplomatic"]: col += 55 
         
-    # character 8
+    # Digit/Character #8
     if label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]:
-        if random:
-            plate_int = get_random_int(num_list, 0, 1)
-        else:
-            plate_int = plate_chars[-1] if label_prefix in ["foreign_res", "foreign_comp"] else plate_chars[-2]
+        
+        # Get plate integer
+        if random: plate_int = get_random_int(num_list, 0, 1)
+        else: plate_int = plate_chars[-1] if label_prefix in ["foreign_res", "foreign_comp"] else plate_chars[-2]
+            
+        # Add plate integer to the label
         label += str(plate_int)
+        
+        # Add character image to the plate
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
     
     else:
