@@ -130,13 +130,17 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         # Increase the column value
         col += 60
     
-    # character 7
+    # Digit/Character #7
     if label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]:
-        if random:
-            plate_int = get_random_int(num_list, 0, 1)
-        else:
-            plate_int = plate_chars[-2] if label_prefix == "foreign" else plate_chars[-3]
+        
+        # Get plate integer
+        if random: plate_int = get_random_int(num_list, 0, 1)
+        else: plate_int = plate_chars[-2] if label_prefix == "foreign" else plate_chars[-3]
+        
+        # Add plate integer to the label
         label += str(plate_int)
+        
+        # Add digit image to the plate
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
     
     else:
