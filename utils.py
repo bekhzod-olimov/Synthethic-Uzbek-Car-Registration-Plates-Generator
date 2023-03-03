@@ -68,7 +68,7 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     
     """
     
-    This function gets arguments and does partial LP generation.
+    This function gets arguments and does the second part of LP generation.
     
     Arguments:
     
@@ -182,6 +182,30 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     return plate, label
     
 def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, num_size, region_size, char_ims, char_size, label_prefix, row, col, random, regions):
+    
+    """
+    
+    This function gets arguments and does the first part of LP generation.
+    
+    Arguments:
+    
+        plate        - a plate image, array;
+        label        - label for the LP, str;
+        num_list     - digits for LP generation, list;
+        init_size    - initial size for the plates, tuple;
+        char_list    - characters for LP generation, list;
+        num_ims      - digit images for LP generation, dic;
+        char_ims     - character images for LP generation, dic;
+        char_size    - size of the characters, tuple;
+        num_size     - size of the digits, tuple;
+        region_size  - size of the regions, tuple;
+        plate_chars  - characters for plate, list;
+        row          - value of the row, int;
+        col          - value of the column, int;
+        random       - randomness option, bool;
+        label_prefix - plate type, str.
+    
+    """
     
     # number 1
     if label_prefix == "diplomatic":
