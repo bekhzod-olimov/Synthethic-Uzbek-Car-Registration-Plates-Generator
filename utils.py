@@ -143,11 +143,11 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         # Add digit image to the plate
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
     
-    else:
+    # Get plate, label, and column value
+    else: plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=char_list, row=row, col=col, 
+                                                  num_ims=char_ims, num_size=char_size, ran=random, num=-2, tt=True)
         
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=char_list, row=row, col=col, 
-                                                num_ims=char_ims, num_size=char_size, ran=random, num=-2, tt=True)
-        
+    # Increase the column value
     if label_prefix in ["basic", "state"]: col += 60 
     elif label_prefix in ["foreign_res", "foreign_comp","diplomatic"]: col += 55 
         
