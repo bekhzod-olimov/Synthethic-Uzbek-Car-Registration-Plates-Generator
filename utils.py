@@ -164,14 +164,18 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
         # Add character image to the plate
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(num_ims[plate_int], char_size)
     
-    else:
-        
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=char_list, row=row, col=col, 
-                                                num_ims=char_ims, num_size=char_size, ran=random, num=-1, tt=True)
+    # Get plate, label, and column value
+    else: plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=char_list, row=row, col=col, 
+                                                  num_ims=char_ims, num_size=char_size, ran=random, num=-1, tt=True)
+        # Increase the column value
         col += 50
         
     if label_prefix == "diplomatic":
+        
+        # Increase the column value
         col += 55
+        
+        # Get plate, label, and column value
         plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
                                                 num_ims=num_ims, num_size=num_size, ran=random, num=-1, tt=True)
     
