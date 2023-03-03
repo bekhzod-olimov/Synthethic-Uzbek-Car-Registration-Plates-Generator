@@ -43,7 +43,7 @@ def get_random_int(*args):
     
     """
     
-    return args[0][int(np.random.randint(low=args[1], high=len(args[0]), size=args[2]))]
+    return args[0][int(np.random.randint(low = args[1], high = len(args[0]), size = args[2]))]
 
 def get_label_and_plate(*args, **kwargs):
     
@@ -192,18 +192,19 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
         plate        - a plate image, array;
         label        - label for the LP, str;
         num_list     - digits for LP generation, list;
+        num_ims      - digit images for LP generation, dic;
         init_size    - initial size for the plates, tuple;
         char_list    - characters for LP generation, list;
-        num_ims      - digit images for LP generation, dic;
-        char_ims     - character images for LP generation, dic;
-        char_size    - size of the characters, tuple;
+        plate_chars  - characters for plate, list;
         num_size     - size of the digits, tuple;
         region_size  - size of the regions, tuple;
-        plate_chars  - characters for plate, list;
+        char_ims     - character images for LP generation, dic;
+        char_size    - size of the characters, tuple;
+        label_prefix - plate type, str
         row          - value of the row, int;
         col          - value of the column, int;
         random       - randomness option, bool;
-        label_prefix - plate type, str.
+        regions      - regions for LP, list.    
     
     """
     
