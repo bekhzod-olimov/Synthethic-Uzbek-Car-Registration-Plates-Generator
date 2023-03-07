@@ -290,13 +290,17 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
         if label_prefix == "basic": col += 70 
         elif label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]: col += 75
 
+    # State plates
     elif label_prefix == "state":
         
-        plate, label, col = get_label_and_plate(plate=plate, plate_chars=plate_chars, label=label, li=num_list, row=row, col=col, 
-                                                num_ims=num_ims, num_size=num_size, ran=random, num=-6, tt=True)
-        
+        # Get plate image, label, and column value
+        plate, label, col = get_label_and_plate(plate = plate, plate_chars = plate_chars, label = label, li = num_list, row = row, col = col, 
+                                                num_ims = num_ims, num_size = num_size, ran = random, num = -6, tt = True)
+         
+        # Increase the column value
         col += 50
         
+    # Get plate and label
     plate, label = partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_size, region_size, plate_chars, num_size, row, col, random, label_prefix) 
         
     return plate, label
