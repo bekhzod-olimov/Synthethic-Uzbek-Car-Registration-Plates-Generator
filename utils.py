@@ -210,6 +210,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
     
     # Digit #1
     if label_prefix == "diplomatic": col += 25        
+    # Not diplomatic plate type
     else:
         
         # Random case
@@ -218,7 +219,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
             # Get region
             random_region = regions[int(np.random.choice(np.arange(0, len(regions)), p=[0.12, 0.08, 0.04, 0.04, 0.1, 0.1, 0.08, 0.08, 0.08, 0.07, 0.08, 0.05, 0.0409999999999805, 0.03900000000001977]))]
             
-            # Add to label
+            # Add to the label
             label += str(num_list[int(random_region[0])])
             
             # Draw region to the plate
@@ -230,7 +231,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
             # Get plate digit
             plate_int = int(plate_chars[0])
             
-            # Add to label
+            # Add to the label
             label += str(num_list[plate_int])
             
             # Draw region to the plate
@@ -239,13 +240,29 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
 
     # Digit #2
     if label_prefix == "diplomatic": col += 25        
+
+    # Not diplomatic plate type
     else:
+        
+        # Random case
         if random:
+            
+            # Add to the label
             label += str(num_list[int(random_region[1])])
+            
+            # Draw digit to the plate
             plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(random_region[1])], (init_size[1], num_size[0]))
+        
+        # Pre-defined case
         else:
+            
+            # Get plate digit
             plate_int = int(plate_chars[1])
+            
+            # Add to the label
             label += str(num_list[plate_int])
+            
+            # Draw digit to the plate
             plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
         col += 70
     
