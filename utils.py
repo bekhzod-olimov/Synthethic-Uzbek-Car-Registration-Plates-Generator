@@ -307,6 +307,16 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
 
 def save(**kwargs):
     
+    """
+    
+    This function gets a number of keyword arguments and saves the generated plate to the pre-defined destination.
+    
+    Arguments:
+    
+        plate - a generated plate;
+    
+    """
+    
     if kwargs["transformations"]:
         
         plate = random_bright(kwargs["plate"])
