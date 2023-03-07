@@ -211,19 +211,34 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
     # Digit #1
     if label_prefix == "diplomatic": col += 25        
     else:
+        
+        # Random case
         if random:
+            
+            # Get region
             random_region = regions[int(np.random.choice(np.arange(0, len(regions)), p=[0.12, 0.08, 0.04, 0.04, 0.1, 0.1, 0.08, 0.08, 0.08, 0.07, 0.08, 0.05, 0.0409999999999805, 0.03900000000001977]))]
+            
+            # Add to label
             label += str(num_list[int(random_region[0])])
+            
+            # Draw region to the plate
             plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(random_region[0])], (init_size[1], num_size[0]))
+        
+        # Pre-defined case
         else:
+            
+            # Get plate digit
             plate_int = int(plate_chars[0])
+            
+            # Add to label
             label += str(num_list[plate_int])
+            
+            # Draw region to the plate
             plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
         col += 40
 
     # Digit #2
-    if label_prefix == "diplomatic":
-        col += 25
+    if label_prefix == "diplomatic": col += 25        
     else:
         if random:
             label += str(num_list[int(random_region[1])])
@@ -234,17 +249,14 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
             plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
         col += 70
     
-    # character 3
+    # Character #3
     row -= init_size[0] - 3 
     
     if label_prefix in ["foreign_res", "foreign_comp"]: col += 5
     if label_prefix in ["foreign_res", "foreign_comp", "basic", "diplomatic"]:
 
-        if random:
-            plate_int = get_random_int(char_list, 0, 1)
-        else:
-            plate_int = (plate_chars[-6]) if label_prefix == "basic" else ((plate_chars[-7]) if label_prefix in ["foreign_res", "foreign_comp"] else (plate_chars[0]))
-        
+        if random: plate_int = get_random_int(char_list, 0, 1)
+        else: plate_int = (plate_chars[-6]) if label_prefix == "basic" else ((plate_chars[-7]) if label_prefix in ["foreign_res", "foreign_comp"] else (plate_chars[0]))
         label += str(plate_int)
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
         if label_prefix == "basic": col += 70 
