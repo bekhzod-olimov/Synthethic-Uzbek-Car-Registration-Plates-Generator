@@ -324,14 +324,22 @@ def save(**kwargs):
     
     """
     
+    # Apply transformations
     if kwargs["transformations"]:
         
+        # Random bright
         plate = random_bright(kwargs["plate"])
+        
+        # Transformations
         tfs = albumentations.Compose([Affine(rotate=[-7, 7], shear=None, p=0.5), Perspective(scale=(0.02, 0.1), p=0.1)])
+        
+        # Get the plate image after transformations
         plate = tfs(image=plate)["image"]
     
+    # No transformations
     else: plate = kwargs["plate"]
     
+    # 
     folder = kwargs["label"].split('__')[0]
     save_dir = os.path.join(kwargs["save_path"], folder)
     os.makedirs(save_dir, exist_ok = True)
