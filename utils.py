@@ -339,10 +339,16 @@ def save(**kwargs):
     # No transformations
     else: plate = kwargs["plate"]
     
-    # 
+    # Get folder name to save the images
     folder = kwargs["label"].split('__')[0]
+
+    # Create folder name to save the images
     save_dir = os.path.join(kwargs["save_path"], folder)
+    
+    # Create the folder to save the images
     os.makedirs(save_dir, exist_ok = True)
+    
+    # Save the images to the path
     cv2.imwrite(os.path.join(save_dir, f"{kwargs['label'].split('__')[1]}__{folder}") + ".jpg", plate)
     # print(f"Plate {label.split('__')[1]}__{folder}.jpg is saved to {save_dir}/!")
     
