@@ -236,6 +236,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
             
             # Draw region to the plate
             plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
+        # Increase the column value
         col += 40
 
     # Digit #2
@@ -264,6 +265,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
             
             # Draw digit to the plate
             plate[row:row + num_size[0], col:col + init_size[1], :] = cv2.resize(num_ims[str(plate_int)], (init_size[1], num_size[0]))
+        # Increase the column value
         col += 70
     
     # Character #3
@@ -272,10 +274,19 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
     if label_prefix in ["foreign_res", "foreign_comp"]: col += 5
     if label_prefix in ["foreign_res", "foreign_comp", "basic", "diplomatic"]:
 
+        # Random case
         if random: plate_int = get_random_int(char_list, 0, 1)
+        
+        # Pre-defined case
         else: plate_int = (plate_chars[-6]) if label_prefix == "basic" else ((plate_chars[-7]) if label_prefix in ["foreign_res", "foreign_comp"] else (plate_chars[0]))
+        
+        # Add to the label
         label += str(plate_int)
+        
+        # Draw character to the plate
         plate[row:row + char_size[1], col:col + char_size[0], :] = cv2.resize(char_ims[plate_int], char_size)
+        
+        # Increase the column value
         if label_prefix == "basic": col += 70 
         elif label_prefix in ["foreign_res", "foreign_comp", "diplomatic"]: col += 75
 
