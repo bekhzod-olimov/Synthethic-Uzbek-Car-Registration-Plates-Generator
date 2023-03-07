@@ -313,7 +313,14 @@ def save(**kwargs):
     
     Arguments:
     
-        plate - a generated plate;
+        plate           - a generated plate;
+        transformations - transformations;
+        label           - label of the plate;
+        save_path       - path to save the generated plates.
+
+    Output:
+    
+        Saved LP image to the pre-defined path.
     
     """
     
