@@ -419,6 +419,13 @@ def preprocess(*args):
 
 def generate_plate(**kwargs):
     
+    """
+    
+    This function gets a number of keyword arguments and generates a plate.
+    
+    
+    """
+    
     plate_chars = [char for char in kwargs["plate"]]
     
     plate, label, row, col = preprocess(kwargs["plate_path"], kwargs["plate_size"], kwargs["label_prefix"], kwargs["region_size"])
