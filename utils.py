@@ -396,7 +396,9 @@ def preprocess(*args):
     
     Argument:
     
-        files_path - a path to the directory with files, str.
+        im_path - path to an image, str;
+        size    - resize dimensions, tuple;
+        label   - start label, str;
 
     Outputs:
 
