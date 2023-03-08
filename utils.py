@@ -402,9 +402,11 @@ def preprocess(*args):
 
     Outputs:
 
-        ims   - images, dic; 
-        files - the contents of the path, list.
-    
+        plate - plate image, array; 
+        label - label for the image, str;
+        row   - row value, int;
+        col   - column value, int.
+        
     """
     
     plate = cv2.resize(cv2.imread(args[0]), args[1])
