@@ -313,10 +313,10 @@ def save(**kwargs):
     
     Arguments:
     
-        plate           - a generated plate;
-        transformations - transformations;
-        label           - label of the plate;
-        save_path       - path to save the generated plates.
+        plate           - a generated plate, array;
+        transformations - transformations, bool;
+        label           - label of the plate, str;
+        save_path       - path to save the generated plates, str.
 
     Output:
     
@@ -358,18 +358,18 @@ def load(files_path):
     
     This function gets files path and loads its contents.
     
-    Arguments:
+    Argument:
     
-        files_path - a path to the directory with files.
+        files_path - a path to the directory with files, str.
 
-    Output:
-    
-        ims   - images, 
-        files - 
-        Saved LP image to the pre-defined path.
+    Outputs:
+
+        ims   - images, dic; 
+        files - the contents of the path, list.
     
     """
     
+    # Get the contents of the file path
     files_paths = sorted(os.listdir(files_path))
     ims, files = {}, [] 
 
