@@ -354,6 +354,22 @@ def save(**kwargs):
     
 def load(files_path):
     
+    """
+    
+    This function gets files path and loads its contents.
+    
+    Arguments:
+    
+        files_path - a path to the directory with files.
+
+    Output:
+    
+        ims   - images, 
+        files - 
+        Saved LP image to the pre-defined path.
+    
+    """
+    
     files_paths = sorted(os.listdir(files_path))
     ims, files = {}, [] 
 
