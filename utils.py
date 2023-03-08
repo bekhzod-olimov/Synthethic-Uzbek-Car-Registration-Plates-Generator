@@ -390,6 +390,21 @@ def load(files_path):
 
 def preprocess(*args):
     
+    """
+    
+    This function gets a number of arguments and does preprocessing by returning plate, label, row, and column values.
+    
+    Argument:
+    
+        files_path - a path to the directory with files, str.
+
+    Outputs:
+
+        ims   - images, dic; 
+        files - the contents of the path, list.
+    
+    """
+    
     plate = cv2.resize(cv2.imread(args[0]), args[1])
     label = f"{args[2]}__" 
     
