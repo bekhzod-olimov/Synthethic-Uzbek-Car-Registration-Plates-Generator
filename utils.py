@@ -377,9 +377,13 @@ def load(files_path):
 
     # Go through the files paths
     for char_path in files_paths:
+        # Get a file name
         fname = os.path.splitext(char_path)[0]
+        # Get an image
         im = cv2.imread(os.path.join(files_path, char_path))
+        # Save the image to the dictionary
         ims[fname] = im
+        # Add name to the list
         files.append(char_path[0:-4])
         
     return ims, files
