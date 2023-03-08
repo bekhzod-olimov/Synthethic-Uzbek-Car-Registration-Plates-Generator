@@ -431,9 +431,11 @@ def generate_plate(**kwargs):
     # Get the plate image, label string, and row, column values
     plate, label, row, col = preprocess(kwargs["plate_path"], kwargs["plate_size"], kwargs["label_prefix"], kwargs["region_size"])
     
-    plate, label = write(plate=plate, label=label, num_list=kwargs["num_list"], num_ims=kwargs["num_ims"], random=kwargs["random"], 
-                         init_size=kwargs["init_size"], char_list=kwargs["char_list"], plate_chars=plate_chars,
-                         char_ims=kwargs["char_ims"], char_size=kwargs["char_size"], region_size=kwargs["region_size"], regions=kwargs["regions"],
-                         label_prefix=kwargs["label_prefix"], row=row, num_size=kwargs["num_size"], col=col)
+    # Get a plate image and label string
+    plate, label = write(plate = plate, label = label, num_list = kwargs["num_list"], num_ims = kwargs["num_ims"], random = kwargs["random"], 
+                         init_size = kwargs["init_size"], char_list = kwargs["char_list"], plate_chars = plate_chars,
+                         char_ims = kwargs["char_ims"], char_size = kwargs["char_size"], region_size = kwargs["region_size"], regions = kwargs["regions"],
+                         label_prefix = kwargs["label_prefix"], row = row, num_size = kwargs["num_size"], col = col)
 
-    if kwargs["save_"]: save(plate=plate, save_path=kwargs["save_path"], transformations=kwargs["transformations"], label=label)
+    # Save the generated plate image
+    if kwargs["save_"]: save(plate = plate, save_path = kwargs["save_path"], transformations = kwargs["transformations"], label = label)
