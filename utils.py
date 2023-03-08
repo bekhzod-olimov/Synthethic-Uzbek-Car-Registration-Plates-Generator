@@ -371,8 +371,11 @@ def load(files_path):
     
     # Get the contents of the file path
     files_paths = sorted(os.listdir(files_path))
+    
+    # Initialize dictionary and list
     ims, files = {}, [] 
 
+    # Go through the files paths
     for char_path in files_paths:
         fname = os.path.splitext(char_path)[0]
         im = cv2.imread(os.path.join(files_path, char_path))
