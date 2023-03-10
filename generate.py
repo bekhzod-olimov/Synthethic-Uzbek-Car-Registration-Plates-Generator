@@ -10,9 +10,13 @@ def run(args):
     
     This function gets arguments and runs the code.
     
-    Arguments:
+    Argument:
         
         args - parsed arguments, Namespace object.
+        
+    Output:
+        
+        a synthetic license plate image.
     
     """
     
