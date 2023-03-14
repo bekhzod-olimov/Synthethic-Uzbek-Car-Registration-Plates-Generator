@@ -43,10 +43,14 @@ class PlateGenerator:
 
         This function asserts that given region name is in the region names list.
         
-        Argument:
+        Arguments:
             
-            region_name - name of the specific region;
-            regions - regions list.
+            region_name - name of the specific region, str;
+            regions     - regions name, list.
+            
+        Output:
+        
+            result of the assertion.
         
         """
         
@@ -62,11 +66,11 @@ class PlateGenerator:
         
         Argument:
             
-            plate - license plate.
+            plate       - license plate, str.
             
         Output:
         
-            plate type.
+            plate type  - type of the LP, str.
         
         """
         
