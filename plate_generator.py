@@ -1,4 +1,4 @@
-# Import functions from utils 
+# Import libraries
 from utils import *
 
 class PlateGenerator:
@@ -9,8 +9,8 @@ class PlateGenerator:
     
     Arguments:
     
-        save_path - path to save generated images, str;
-        random - randomness option, bool;
+        save_path       - path to save generated images, str;
+        random          - randomness option, bool;
         transformations - transformations option, bool;
     
     """
