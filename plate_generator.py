@@ -95,7 +95,7 @@ class PlateGenerator:
 
         Output:
 
-            plate      - a generated plate.
+            plate      - a generated plate, array.
 
         """
         
