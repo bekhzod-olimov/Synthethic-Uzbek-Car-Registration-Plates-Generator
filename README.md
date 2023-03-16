@@ -11,3 +11,6 @@ conda activate <ENV_NAME>
 pip install -r requirements.txt
 
 ```
+
+### Synthetic Uzbek Licence Plates Generation
+The synthetic LP numbers are generated based on [the latest available online information](https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Uzbekistan). According to the information, there are six widely-used car LP types in South Korea:
