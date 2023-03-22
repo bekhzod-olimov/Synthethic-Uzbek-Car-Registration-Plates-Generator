@@ -25,8 +25,7 @@ The synthetic LP numbers are generated based on [the latest available online inf
 
 | Private Passenger Cars LP | State Passenger Cars LP | Diplomatic Cars LP | Foreign Residents Cars LP | Foreign Companies Cars LP |
 |       :-:       |     :---------:        |         :-:         |        :--------:         |   :----:         | 
-| <img src=https://user-images.githubusercontent.com/50166164/226815467-e010edbc-7fde-473f-8289-92b21f38aa50.jpg width=350px height=80px> | <img src=https://user-images.githubusercontent.com/50166164/226815584-e8932cc2-ef6f-494c-9e02-30fcd9d9a164.jpg width=200px height=120px> | <img src=https://user-images.githubusercontent.com/50166164/218628189-0dab45b8-ed2c-4bef-84da-00c42dccc786.jpg width=320px height=80px> | <img src=https://user-images.githubusercontent.com/50166164/218628118-21eab9ea-7619-41e2-889c-311caf1c5a53.jpg width=200px height=120px> |
-
+| <img src=https://user-images.githubusercontent.com/50166164/226815467-e010edbc-7fde-473f-8289-92b21f38aa50.jpg width=350px height=80px> | <img src=https://user-images.githubusercontent.com/50166164/226815584-e8932cc2-ef6f-494c-9e02-30fcd9d9a164.jpg width=200px height=120px> | <img src=https://user-images.githubusercontent.com/50166164/226815751-d308f26e-896d-49b7-8d53-1488c6498f85.jpg width=320px height=80px> | <img src=https://user-images.githubusercontent.com/50166164/226815690-05716ce9-1c71-4e4c-8a8e-a1b4d97da099.jpg width=200px height=120px> |
 
 
 
