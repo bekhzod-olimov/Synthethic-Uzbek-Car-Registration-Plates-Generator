@@ -39,6 +39,11 @@ python generate.py --save_path "path/to/save/synthetic_lps" --random=True --tran
 ```
 This script randomly creates LP information, generates synthethic LPs from the randomly created information, and saves them into the save_path.
 
+##### :computer: Create train dataset :computer:
+```
+python make_dataset.py --in_im_paths "path/to/generated/synthetic_lps" --out_im_paths "path/to/real-life/images" --trainA "path/to/copy/synthetic/images" --trainB "path/to/copy/real-life/images" --type "train or test depending on dataset type"
+```
+
 
 
 
