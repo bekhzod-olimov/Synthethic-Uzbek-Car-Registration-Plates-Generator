@@ -27,6 +27,18 @@ The synthetic LP numbers are generated based on [the latest available online inf
 |       :-:       |     :---------:        |         :-:         |        :--------:         |   :----:         | 
 | <img src=https://user-images.githubusercontent.com/50166164/226815467-e010edbc-7fde-473f-8289-92b21f38aa50.jpg width=390px height=80px> | <img src=https://user-images.githubusercontent.com/50166164/226815584-e8932cc2-ef6f-494c-9e02-30fcd9d9a164.jpg width=390px height=80px> | <img src=https://user-images.githubusercontent.com/50166164/226815921-cc2e6de1-96ca-46da-8be0-888aa3473e40.jpg width=390px height=80px> | <img src=https://user-images.githubusercontent.com/50166164/226815751-d308f26e-896d-49b7-8d53-1488c6498f85.jpg width=390px height=80px> | <img src=https://user-images.githubusercontent.com/50166164/226815690-05716ce9-1c71-4e4c-8a8e-a1b4d97da099.jpg width=390px height=80px>
 
+##### :computer: Generate synthetic LPs from pre-defined file :computer:
+```
+python generate.py --data_path "path/to/csv_file" --save_path "path/to/save/synthetic_lps" --random=False --transformations=False --save=True
+```
+This script gets information about the LPs from pre-defined csv file, generates synthethic LPs, and saves them into the save_path.
+
+##### :computer: Generate synthetic LPs (random generation) :computer:
+```
+python generate.py --save_path "path/to/save/synthetic_lps" --random=True --transformations=False --random=True --save=True --number_of_plates 100
+```
+This script randomly creates LP information, generates synthethic LPs from the randomly created information, and saves them into the save_path.
+
 
 
 
