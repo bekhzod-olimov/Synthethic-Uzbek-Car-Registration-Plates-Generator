@@ -34,14 +34,18 @@ python generate.py --data_path "path/to/csv_file" --save_path "path/to/save/synt
 This script gets information about the LPs from pre-defined csv file, generates synthethic LPs, and saves them into the save_path.
 
 ##### :computer: Generate synthetic LPs (random generation) :computer:
+
 ```
 python generate.py --save_path "path/to/save/synthetic_lps" --random=True --transformations=False --random=True --save=True --number_of_plates 100
+
 ```
 This script randomly creates LP information, generates synthethic LPs from the randomly created information, and saves them into the save_path.
 
 ##### :computer: Create train dataset :computer:
+
 ```
 python make_dataset.py --in_im_paths "path/to/generated/synthetic_lps" --out_im_paths "path/to/real-life/images" --trainA "path/to/copy/synthetic/images" --trainB "path/to/copy/real-life/images" --type "train or test depending on dataset type"
+
 ```
 
 
