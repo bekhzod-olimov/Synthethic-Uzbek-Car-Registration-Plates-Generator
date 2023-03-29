@@ -48,6 +48,12 @@ python make_dataset.py --in_im_paths "path/to/generated/synthetic_lps" --out_im_
 
 ```
 
+### Real Uzbekistan Licence Plates Generation
+
+##### Train
+
+After getting synthetic images, we train them using modified (more efficient and fast) [proposed network] as follows:
+
 
 
 
