@@ -57,7 +57,7 @@ After getting synthetic images, we train them using an efficient and fast propos
 ```
 python train.py --dataroot path/to/the/dataset --name name/of/the/trained/model --CUT_mode CUT/FastCUT
 ```
-This script trains the model based on the "--CUT_mode" argument (CUT or FastCUT) using the given dataroot (the root should contain two folders, trainA and trainB, respectively) and saves the model outputs under "--name" (this is later used for testing purposes) model name.
+This script trains the model based on the mode of the model using the given dataroot (the root should contain two folders, trainA and trainB, respectively) and saves the model outputs under "--name" (this is later used for testing purposes) model name.
 
 
 
