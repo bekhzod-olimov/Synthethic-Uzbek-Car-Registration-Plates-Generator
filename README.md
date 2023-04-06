@@ -54,6 +54,11 @@ python make_dataset.py --in_im_paths "path/to/generated/synthetic_lps" --out_im_
 
 After getting synthetic images, we train them using an efficient and fast proposed network as follows:
 
+```
+python train.py --dataroot path/to/the/dataset --name name/of/the/trained/model --CUT_mode CUT/FastCUT
+```
+This script trains the model based on the "--CUT_mode" argument (CUT or FastCUT) using the given dataroot (the root should contain two folders, trainA and trainB, respectively) and saves the model outputs under "--name" (this is later used for testing purposes) model name.
+
 
 
 
