@@ -66,6 +66,7 @@ python test.py --dataroot path/to/the/dataset --name name/of/the/trained/model -
 ```
 
 This script conducts inference with the pretrained model (choose the model using "--name" argument) based on the "--CUT_mode" argument (CUT or FastCUT) using the given test dataroot (the root should contain two folders, testA and testB, respectively). The inference results can be found at ./results/name/train_latest/...
+Generated sample LPs can be seen below:
 
 
 This script conducts inference with the pretrained model (choose the model using "--name" argument) based on the "--CUT_mo
