@@ -64,7 +64,7 @@ This script trains the model based on the mode of the model using the given data
 ```
 python test.py --dataroot path/to/the/dataset --name name/of/the/trained/model --phase test
 ```
-
+This script conducts inference with the pretrained model (choose the model using "--name" argument) based on the "--CUT_mode" argument (CUT or FastCUT) using the given test dataroot (the root should contain two folders, testA and testB, respectively). The inference results can be found at ./results/name/train_latest/...
 
 
 
