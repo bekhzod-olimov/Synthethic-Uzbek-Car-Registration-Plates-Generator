@@ -7,7 +7,7 @@ class PlateGenerator:
     
     This class gets path to save generated lps, random option, and transformations option and generates lps.
     
-    Arguments:
+    Parameters:
     
         save_path       - path to save generated images, str;
         random          - randomness option, bool;
@@ -20,16 +20,13 @@ class PlateGenerator:
         self.save_path, self.random, self.transformations = save_path, random, transformations
 
         # Get digits and characters with white background
-        self.num_ims, self.num_lists = load("./digits/digits_white/")
-        self.char_ims, self.char_lists = load("./letters/letters_white/")
+        self.num_ims, self.num_lists = load("./digits/digits_white/"); self.char_ims, self.char_lists = load("./letters/letters_white/")
         
         # Get digits and characters with yellow background
-        self.num_ims_yellow, self.num_lists_yellow = load("./digits/digits_yellow/")
-        self.char_ims_yellow, self.char_lists_yellow = load("./letters/letters_yellow/")
+        self.num_ims_yellow, self.num_lists_yellow = load("./digits/digits_yellow/"); self.char_ims_yellow, self.char_lists_yellow = load("./letters/letters_yellow/")
         
         # Get digits and characters with green background
-        self.num_ims_green, self.num_lists_green = load("./digits/digits_green/")
-        self.char_ims_green, self.char_lists_green = load("./letters/letters_green/")
+        self.num_ims_green, self.num_lists_green = load("./digits/digits_green/"); self.char_ims_green, self.char_lists_green = load("./letters/letters_green/")
         
         # Initialize a dictionary with region numbers as keys and region names as values
         self.regions = {"01": "Tashkent", "10": "Tashkent Region", "20": "Sirdaryo", "25": "Jizzakh", "30": "Samarqand", "40": "Fergana", "50": "Namangan", "60": "Andijan", "70": "Qashqadaryo", "75": "Surxondaryo", "80": "Bukhara", "85": "Navoiy", "90": "Xorazm", "95": "Karakalpakstan"}
