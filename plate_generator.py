@@ -40,7 +40,7 @@ class PlateGenerator:
 
         This function asserts that given region name is in the region names list.
         
-        Arguments:
+        Parameters:
             
             region_name - name of the specific region, str;
             regions     - regions name, list.
@@ -61,7 +61,7 @@ class PlateGenerator:
         
         This function gets plate and return type of the lp.
         
-        Argument:
+        Parameter:
             
             plate       - license plate, str.
             
@@ -71,9 +71,9 @@ class PlateGenerator:
         
         """
         
-        if plate[0].isalpha(): return "diplomatic"
-        elif plate[-1].isdigit(): return "foreign_res"
-        elif plate[2].isalpha(): return "basic"
+        if plate[0].isalpha():     return "diplomatic"
+        elif plate[-1].isdigit():  return "foreign_res"
+        elif plate[2].isalpha():   return "basic"
         elif plate[-3:].isalpha(): return "state"            
         
     def generate(self, plate, save, plate_type, num, region):
@@ -82,7 +82,7 @@ class PlateGenerator:
         
         This function gets plate save option, plate type, number, and region and generates LP.
 
-        Arguments:
+        Parameters:
 
             plate      - license plate, str;
             save       - saving option, bool;
@@ -128,11 +128,11 @@ class PlateGenerator:
             self.assert_(region, self.regions)
             
             # Generate LP
-            generate_plate(plate_path=plate_path, random=self.random,
-                       plate=plate, num_size=(55, 78), transformations=self.transformations,
-                       num_list=num_list, init_size=(13, 45), 
-                       char_list=char_list, regions=list(self.regions.keys()),
-                       num_ims=num_ims, char_size=(60, 78), region=region, 
-                       char_ims=char_ims, label_prefix=plate_type,
-                       save_path=self.save_path, region_size=(25, 25),
-                       save_=save, plate_size=(575, 110))
+            generate_plate(plate_path = plate_path, random = self.random,
+                       plate = plate, num_size = (55, 78), transformations = self.transformations,
+                       num_list = num_list, init_size = (13, 45), 
+                       char_list = char_list, regions = list(self.regions.keys()),
+                       num_ims = num_ims, char_size = (60, 78), region = region, 
+                       char_ims = char_ims, label_prefix = plate_type,
+                       save_path = self.save_path, region_size = (25, 25),
+                       save_ = save, plate_size = (575, 110))
