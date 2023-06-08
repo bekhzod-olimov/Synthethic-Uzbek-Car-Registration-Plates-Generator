@@ -11,22 +11,22 @@ def random_bright(im):
     
     This function gets an input image and applies random brightness.
     
-    Argument:
+    Parameter:
     
-        im - an input image, cv image.
+        im       - an input image, array.
         
     Output:
         
-        an output image with applied random brightness.
+        out      - an output image with applied random brightness, array.
     
     """
     
-    im = np.array(cv2.cvtColor(im, cv2.COLOR_RGB2HSV), dtype=np.float64)
+    im = np.array(cv2.cvtColor(im, cv2.COLOR_RGB2HSV), dtype = np.float64)
     random_bright = .5 + np.random.uniform()
     im[:, :, 2] = im[:, :, 2] * random_bright
     im[:, :, 2][im[:, :, 2] > 255] = 255
     
-    return cv2.cvtColor(np.array(im, dtype=np.uint8), cv2.COLOR_HSV2RGB)
+    return cv2.cvtColor(np.array(im, dtype = np.uint8), cv2.COLOR_HSV2RGB)
 
 def get_random_int(*args): 
     
@@ -34,9 +34,9 @@ def get_random_int(*args):
     
     This function gets arguments and returns random instance of the list.
     
-    Arguments:
+    Parameters:
     
-        li   - pre-defined list;
+        li   - pre-defined list, list;
         low  - low value for the list, int;
         high - high value for the list, int;
         size - number of instances to be returned, int.
@@ -70,7 +70,7 @@ def partial_write(plate, label, num_list, char_list, num_ims, char_ims, char_siz
     
     This function gets arguments and does the second part of LP generation.
     
-    Arguments:
+    Parameters:
     
         plate        - a plate image, array;
         label        - label for the LP, str;
@@ -187,7 +187,7 @@ def write(plate, label, num_list, num_ims, init_size, char_list, plate_chars, nu
     
     This function gets arguments and does the first part of LP generation.
     
-    Arguments:
+    Parameters:
     
         plate        - a plate image, array;
         label        - label for the LP, str;
@@ -311,7 +311,7 @@ def save(**kwargs):
     
     This function gets a number of keyword arguments and saves the generated plate to the pre-defined destination.
     
-    Arguments:
+    Parameters:
     
         plate           - a generated plate, array;
         transformations - transformations, bool;
@@ -358,7 +358,7 @@ def load(files_path):
     
     This function gets files path and loads its contents.
     
-    Argument:
+    Parameter:
     
         files_path - a path to the directory with files, str.
 
@@ -394,7 +394,7 @@ def preprocess(*args):
     
     This function gets a number of arguments and does preprocessing by returning plate, label, row, and column values.
     
-    Argument:
+    Parameter:
     
         im_path - path to an image, str;
         size    - resize dimensions, tuple;
